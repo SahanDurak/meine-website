@@ -1,21 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f8fb;
+  --foreground: #0f172a;
+  --muted: #475569;
+  --accent: #1d4ed8;
+  --grid-line: rgb(15 23 42 / 0.06);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-grid-line: var(--grid-line);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-space-grotesk);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b1220;
+    --foreground: #e6edf7;
+    --muted: #94a3b8;
+    --accent: #7cb3ff;
+    --grid-line: rgb(147 197 253 / 0.08);
   }
 }
 
@@ -23,4 +33,32 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Static 24px graph paper; fades out downward and toward the sides. Never animated. */
+.bp-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 0%, #000 30%, transparent 100%),
+    linear-gradient(
+      to right,
+      transparent 0%,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, #000 0%, #000 30%, transparent 100%),
+    linear-gradient(
+      to right,
+      transparent 0%,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+  mask-composite: intersect;
 }

@@ -72,7 +72,7 @@ export default function HomePage() {
         <div className="flex items-start gap-3 sm:flex-col sm:gap-2">
           <figure
             aria-hidden="true"
-            className="flex w-44 flex-none flex-col gap-2 border border-grid-strong p-3 sm:w-full"
+            className="flex w-44 flex-none flex-col gap-2 border border-line p-3 sm:w-full"
           >
             <Sketch
               name="robot-arm"
@@ -109,7 +109,7 @@ export default function HomePage() {
         <DimensionLine />
         <nav
           aria-label="Sections"
-          className="flex flex-col divide-y divide-grid-strong border-y border-grid-strong"
+          className="flex flex-col divide-y divide-line border-y border-line"
         >
           {sections.map((section, index) => (
             <SectionLink key={section.href} index={index} {...section} />

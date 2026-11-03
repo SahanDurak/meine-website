@@ -7,10 +7,14 @@ Persönliche Website von Sahan. Dient gleichzeitig als Lernprojekt für KI-Agent
 
 Vier Bereiche:
 
-- **Home** – minimal, clean
-- **Über mich** – minimal, clean
-- **Blog** – minimal, clean, Inhalte als MDX-Dateien
-- **Creative Outlet** – verspielt und optisch eigenständig; gemischte Inhalte (Text, Bilder, Videos), neueste zuerst
+- **Home** – technische Ebene dominiert, Skizzen als Akzent
+- **Über mich** – technische Ebene dominiert, Skizzen als Akzent
+- **Blog** – technische Ebene dominiert, Skizzen als Akzent; Inhalte als MDX-Dateien
+- **Creative Outlet** – Skizzen-Ebene dominiert, technische Ebene als Akzent; gemischte Inhalte (Text, Bilder, Videos), neueste zuerst
+
+## Designrichtung
+
+„Engineer's Sketchbook“: eine präzise technische Ebene (Mono-Schrift, Raster, Maßlinien, Koordinaten) überlagert sich mit einer Skizzen-Ebene (Tinte/Bleistift, handgezeichnete Elemente, sich selbst zeichnende Skizzen). Die ganze Seite darf verspielt sein. Verbindliche Referenz: `docs/design-brief.md`. Motiv-Skizzen liegen in `public/sketches/`.
 
 ## Tech-Stack
 

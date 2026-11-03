@@ -1,0 +1,13 @@
+<!-- Placeholder – replace with own drawing. See docs/design-brief.md -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path pathLength="1" d="M40 176 H160"/>
+  <path pathLength="1" d="M60 176 V160 H140 V176"/>
+  <path pathLength="1" d="M84 160 V140 H116 V160"/>
+  <path pathLength="1" d="M100 140 L68 92"/>
+  <path pathLength="1" d="M60 100 L76 84 L90 94 L74 110 Z"/>
+  <path pathLength="1" d="M82 90 L124 58"/>
+  <path pathLength="1" d="M118 50 L134 52 L132 68 L116 66 Z"/>
+  <path pathLength="1" d="M134 56 L152 48 M134 64 L152 72"/>
+  <path pathLength="1" d="M152 40 V48 M152 72 V80"/>
+  <circle pathLength="1" cx="100" cy="150" r="4"/>
+</svg>

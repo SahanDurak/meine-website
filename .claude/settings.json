@@ -11,6 +11,10 @@
       "Bash(git push * -f *)",
       "Bash(rm -fr:*)",
       "Bash(rm -r -f:*)"
+    ],
+    "ask": [
+      "Bash(.claude/skills/impeccable/scripts/*)",
+      "Bash(node .claude/skills/impeccable/scripts/*)"
     ]
   }
 }

@@ -66,10 +66,11 @@ Die GitHub Action (`.github/workflows/ci.yml`) führt bei jedem Pull Request lin
 - Styling nur mit Tailwind-Klassen, kein eigenes CSS außer `globals.css`
 - Komponenten klein halten, sprechende Namen
 - Code und Kommentare auf Englisch
+- Alle Website-Texte (Seiten, Blog, Creative, Metadaten) auf Englisch, kein Sprachumschalter
 
 ## Kommunikation
 
-- Mit mir auf Deutsch, kurz und verständlich
+- Mit mir auf Deutsch, kurz und verständlich (auch wenn die Website englisch ist)
 - Am Ende jeder Aufgabe: was geändert wurde (2–3 Sätze) und was ich prüfen soll
 
 ## Arbeiten mit Subagents

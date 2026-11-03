@@ -105,7 +105,7 @@ No animation library. CSS only (and tiny inline `pathLength="1"` on SVG shapes).
 - With `prefers-reduced-motion: reduce`, sketches are shown **fully drawn immediately**: `stroke-dashoffset: 0`, no transition, no delay.
 - Also remove parallax, rotation on hover and any looping. Color and opacity changes that aid comprehension may stay (under 200 ms).
 - Hover redraws of underlines and button frames become an instant color change, and `scale` on `:active` is removed.
-- Default state without JavaScript is also fully drawn. The hidden start state is applied only when JS and motion are available, so nothing is ever stuck invisible.
+- Self-drawing is pure CSS: the hidden start state exists only inside the running animation (`animation-fill-mode: backwards`, under `prefers-reduced-motion: no-preference`). Before, after and without the animation the sketch is fully drawn, so nothing is ever stuck invisible, and no JavaScript is needed.
 
 ## 6. Five playful details
 

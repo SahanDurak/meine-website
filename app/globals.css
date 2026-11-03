@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
+/* Color tokens: see docs/design-brief.md, section 2. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --paper: #faf8f3;
+  --ink: #1b1b1a;
+  --pencil: #575757;
+  --grid: #1b1b1a14;
+  --grid-strong: #1b1b1a33;
+  --accent: #b3261e;
+  --led: #1e7a46;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --paper: #1e2326;
+    --ink: #e8e6df;
+    --pencil: #a4a8a3;
+    --grid: #e8e6df14;
+    --grid-strong: #e8e6df33;
+    --accent: #f2796e;
+    --led: #5bd58a;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-pencil: var(--pencil);
+  --color-grid: var(--grid);
+  --color-grid-strong: var(--grid-strong);
+  --color-accent: var(--accent);
+  --color-led: var(--led);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-hand: var(--font-caveat);
+
+  /* Home lab LED: slow, quiet pulse (brief, detail 2). */
+  --animate-led: led-pulse 4s ease-in-out infinite;
+
+  @keyframes led-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+}
+
+/* Hover effects only for devices with a real hover and a fine pointer. */
+@custom-variant fine (@media (hover: hover) and (pointer: fine));
+
+@layer base {
+  body {
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+
+  /* Fine 24 px drawing-sheet grid, fading out toward the edges. It sits on
+     a pseudo-element so the mask never touches the content. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(
+      ellipse 80% 70% at 50% 35%,
+      #000 25%,
+      transparent 100%
+    );
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ink;
+  }
+}
+
+/* Self-drawing sketches (brief, section 5). Shapes carry pathLength="1" and
+   are fully drawn by default. The animation only runs when motion is allowed,
+   and `backwards` keeps the start state hidden during the delay only, so
+   nothing can stay invisible. */
+@keyframes sketch-draw {
+  from {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sketch-draw :is(path, circle, line, rect, ellipse, polyline, polygon),
+  path.sketch-draw {
+    animation: sketch-draw 1.4s cubic-bezier(0.77, 0, 0.175, 1)
+      calc(var(--i, 0) * 100ms) backwards;
+  }
 }

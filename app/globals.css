@@ -2,24 +2,26 @@
 
 /* Color tokens: see docs/design-brief.md, section 2. */
 :root {
-  --paper: #faf8f3;
-  --ink: #1b1b1a;
-  --pencil: #575757;
-  --grid: #1b1b1a14;
-  --grid-strong: #1b1b1a33;
-  --accent: #b3261e;
-  --led: #1e7a46;
+  --paper: #fbf6ea;
+  --ink: #2a2118;
+  --pencil: #6b5e50;
+  --grid-strong: #2a211833;
+  --accent: #a8281c;
+  --led: #2e7436;
+
+  /* Very faint paper grain (feTurbulence noise, about 3% opacity). */
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 0 0.09 0.5 0 0 0 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #1e2326;
-    --ink: #e8e6df;
-    --pencil: #a4a8a3;
-    --grid: #e8e6df14;
-    --grid-strong: #e8e6df33;
-    --accent: #f2796e;
-    --led: #5bd58a;
+    --paper: #27221d;
+    --ink: #ede4d3;
+    --pencil: #b3a892;
+    --grid-strong: #ede4d333;
+    --accent: #f08a74;
+    --led: #6fcf8a;
+    --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.93 0 0 0 0 0.89 0 0 0 0 0.83 0.5 0 0 0 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
   }
 }
 
@@ -27,7 +29,6 @@
   --color-paper: var(--paper);
   --color-ink: var(--ink);
   --color-pencil: var(--pencil);
-  --color-grid: var(--grid);
   --color-grid-strong: var(--grid-strong);
   --color-accent: var(--accent);
   --color-led: var(--led);
@@ -55,25 +56,8 @@
 @layer base {
   body {
     font-family: var(--font-sans), system-ui, sans-serif;
-  }
-
-  /* Fine 24 px drawing-sheet grid, fading out toward the edges. It sits on
-     a pseudo-element so the mask never touches the content. */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      linear-gradient(to right, var(--grid) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-    background-size: 24px 24px;
-    mask-image: radial-gradient(
-      ellipse 80% 70% at 50% 35%,
-      #000 25%,
-      transparent 100%
-    );
+    background-image: var(--paper-grain);
+    background-size: 200px 200px;
   }
 
   :focus-visible {

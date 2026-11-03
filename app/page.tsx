@@ -74,9 +74,6 @@ export default function HomePage() {
             aria-hidden="true"
             className="flex w-44 flex-none flex-col gap-2 border border-grid-strong p-3 sm:w-full"
           >
-            <span className="font-mono text-xs tracking-wider text-pencil">
-              X 000 / Y 000
-            </span>
             <Sketch
               name="robot-arm"
               draw

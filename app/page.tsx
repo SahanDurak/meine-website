@@ -28,12 +28,18 @@ const sections = [
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col gap-16 sm:gap-20">
-      <section className="flex flex-col gap-6">
-        <h1 className="text-4xl leading-[1.1] font-semibold tracking-tight text-balance sm:text-5xl">
+    <div className="flex flex-col gap-16 sm:gap-24">
+      <section className="flex flex-col">
+        <p className="font-mono text-xs tracking-wide text-muted motion-safe:animate-rise">
+          Lübeck · Industrial Engineering · Product · AI
+        </p>
+        <h1 className="mt-6 font-serif text-5xl leading-[1.02] font-normal tracking-[-0.03em] text-balance motion-safe:animate-rise motion-safe:[animation-delay:80ms] sm:text-7xl">
           Hi, I&apos;m Sahan.
         </h1>
-        <p className="max-w-xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+        <p className="mt-4 font-serif text-2xl leading-snug text-accent italic motion-safe:animate-rise motion-safe:[animation-delay:160ms] sm:text-3xl">
+          Where <em className="font-semibold">robotics and AI</em> meet.
+        </p>
+        <p className="mt-10 max-w-xl text-lg leading-8 text-muted motion-safe:animate-rise motion-safe:[animation-delay:240ms]">
           I study Industrial Engineering with a focus on Mechanical Engineering,
           and I work on software and AI solutions as a working student in
           product management. I&apos;m most curious about the place where
@@ -44,10 +50,10 @@ export default function HomePage() {
 
       <nav
         aria-label="Sections"
-        className="flex flex-col divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10"
+        className="flex flex-col divide-y divide-foreground/15 border-y border-foreground/15 motion-safe:animate-rise motion-safe:[animation-delay:320ms]"
       >
-        {sections.map((section) => (
-          <SectionLink key={section.href} {...section} />
+        {sections.map((section, i) => (
+          <SectionLink key={section.href} {...section} index={i + 1} />
         ))}
       </nav>
     </div>

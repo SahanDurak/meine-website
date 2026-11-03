@@ -4,23 +4,35 @@ type SectionLinkProps = {
   href: string;
   label: string;
   description: string;
+  index: number;
 };
 
-export function SectionLink({ href, label, description }: SectionLinkProps) {
+export function SectionLink({
+  href,
+  label,
+  description,
+  index,
+}: SectionLinkProps) {
   return (
     <Link
       href={href}
-      className="group -mx-3 flex items-baseline justify-between gap-6 rounded-lg px-3 py-5 outline-none hover:bg-black/[0.03] focus-visible:ring-2 focus-visible:ring-zinc-900 motion-safe:transition-colors motion-safe:duration-200 dark:hover:bg-white/[0.05] dark:focus-visible:ring-zinc-100"
+      className="group -mx-3 grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-2 rounded-sm px-3 py-6 outline-none hover:bg-foreground/[0.04] focus-visible:ring-2 focus-visible:ring-accent motion-safe:transition-colors motion-safe:duration-200 sm:grid-cols-[3.5rem_1fr_auto]"
     >
-      <span className="flex flex-col gap-1">
-        <span className="text-lg font-medium tracking-tight">{label}</span>
-        <span className="text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          {description}
+      <span
+        aria-hidden="true"
+        className="font-mono text-xs text-muted tabular-nums"
+      >
+        {String(index).padStart(2, "0")}
+      </span>
+      <span className="flex flex-col gap-2">
+        <span className="font-serif text-2xl leading-tight tracking-tight sm:text-3xl">
+          {label}
         </span>
+        <span className="text-sm leading-6 text-muted">{description}</span>
       </span>
       <span
         aria-hidden="true"
-        className="text-zinc-400 group-hover:text-foreground motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:translate-x-0.5 dark:text-zinc-500"
+        className="text-muted group-hover:text-accent motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:translate-x-1"
       >
         →
       </span>

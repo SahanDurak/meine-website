@@ -9,3 +9,6 @@ test-results/
 
 # Vendored Claude Code skills (keep upstream formatting)
 .claude/skills/
+
+# Local, machine-specific Claude Code settings (written by Claude Code)
+.claude/settings.local.json

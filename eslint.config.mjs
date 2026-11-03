@@ -18,6 +18,9 @@ const eslintConfig = defineConfig([
     // Playwright output:
     "playwright-report/**",
     "test-results/**",
+    ".playwright-mcp/**",
+    // Vendored Claude Code skills (upstream code, not ours):
+    ".claude/skills/**",
   ]),
 ]);
 

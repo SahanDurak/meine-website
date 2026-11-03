@@ -46,6 +46,9 @@ public/              Bilder und statische Dateien
 - `npm run build` – Produktions-Build (muss fehlerfrei durchlaufen)
 - `npm run test:e2e` – Playwright-Smoke-Tests (startet den Dev-Server automatisch)
 - Einmalig nach dem Klonen: `nvm use` (Node-Version aus `.nvmrc`) und `npx playwright install chromium`
+- Einmalig für den Playwright MCP (eigene Chromium-Version, passend zu `@playwright/mcp@0.0.84` in `.mcp.json`): `npx playwright-core@1.65.0-alpha-2026-10-30 install chromium`. Beim Update der MCP-Version die passende `playwright-core`-Version aus deren Abhängigkeiten nehmen.
+
+Ein Claude-Code-Hook (`.claude/hooks/format-file.sh`, registriert in `.claude/settings.json`) formatiert jede Datei, die Claude bearbeitet, automatisch mit Prettier.
 
 Die GitHub Action (`.github/workflows/ci.yml`) führt bei jedem Pull Request lint, format:check, typecheck, build und test:e2e aus.
 

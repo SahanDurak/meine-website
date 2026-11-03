@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Blob } from "@/components/blob";
 import { SectionLink } from "@/components/section-link";
 
 export const metadata: Metadata = {
@@ -29,11 +30,15 @@ const sections = [
 export default function HomePage() {
   return (
     <div className="flex flex-col gap-16 sm:gap-20">
-      <section className="flex flex-col gap-6">
-        <h1 className="text-4xl leading-[1.1] font-semibold tracking-tight text-balance sm:text-5xl">
-          Hi, I&apos;m Sahan.
+      <section className="relative flex flex-col gap-6">
+        <Blob className="absolute -top-16 -right-6 -z-10 size-64 sm:-top-24 sm:size-96" />
+        <h1 className="font-serif text-5xl leading-[1.05] font-normal tracking-tight text-balance sm:text-7xl">
+          Hi, I&apos;m <em>Sahan</em>.
         </h1>
-        <p className="max-w-xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+        <p className="font-medium text-accent">
+          Engineering, robotics, a bit of nature and good books.
+        </p>
+        <p className="max-w-xl text-lg leading-8 text-muted">
           I study Industrial Engineering with a focus on Mechanical Engineering,
           and I work on software and AI solutions as a working student in
           product management. I&apos;m most curious about the place where
@@ -44,7 +49,7 @@ export default function HomePage() {
 
       <nav
         aria-label="Sections"
-        className="flex flex-col divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10"
+        className="grid grid-cols-1 gap-4 sm:grid-cols-3"
       >
         {sections.map((section) => (
           <SectionLink key={section.href} {...section} />

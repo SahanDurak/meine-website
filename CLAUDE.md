@@ -71,3 +71,10 @@ Die GitHub Action (`.github/workflows/ci.yml`) führt bei jedem Pull Request lin
 
 - Mit mir auf Deutsch, kurz und verständlich
 - Am Ende jeder Aufgabe: was geändert wurde (2–3 Sätze) und was ich prüfen soll
+
+## Arbeiten mit Subagents
+
+- Design- und Styling-Aufgaben an `ui-designer` delegieren.
+- Texte und Blogartikel an `content-writer` delegieren.
+- Nach jeder abgeschlossenen Code-Änderung `code-reviewer` aufrufen,
+  Blocker beheben, erst dann committen und den PR erstellen.

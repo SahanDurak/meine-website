@@ -9,7 +9,7 @@ export default function BlogPage() {
   return (
     <PagePlaceholder
       title="Blog"
-      description="Hier erscheinen bald meine Artikel."
+      description="My articles will appear here soon."
     />
   );
 }

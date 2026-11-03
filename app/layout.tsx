@@ -18,13 +18,14 @@ export const metadata: Metadata = {
     default: "Sahan",
     template: "%s · Sahan",
   },
-  description: "Persönliche Website von Sahan – Blog und Creative Outlet.",
+  description:
+    "Personal website of Sahan: a blog and a creative outlet for texts, images and videos.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="de"
+      lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">

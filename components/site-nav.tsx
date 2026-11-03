@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "Über mich" },
+  { href: "/about", label: "About" },
   { href: "/blog", label: "Blog" },
   { href: "/creative", label: "Creative" },
 ] as const;
@@ -11,7 +11,7 @@ export function SiteNav() {
   return (
     <header className="border-b border-black/10 dark:border-white/10">
       <nav
-        aria-label="Hauptnavigation"
+        aria-label="Main navigation"
         className="mx-auto flex w-full max-w-3xl flex-wrap items-center gap-x-6 gap-y-2 px-6 py-4"
       >
         {navItems.map((item) => (

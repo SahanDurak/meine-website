@@ -9,7 +9,7 @@ export default function CreativePage() {
   return (
     <PagePlaceholder
       title="Creative Outlet"
-      description="Hier landen bald Texte, Bilder und Videos – neueste zuerst."
+      description="Texts, images and videos will land here soon, newest first."
     />
   );
 }

@@ -13,68 +13,74 @@ Two layers overlap on every page:
 
 The whole site may be playful. What changes per area is which layer leads.
 
-| Area            | Dominant layer                                                        | Accent layer                                   | Result                                                |
-| --------------- | --------------------------------------------------------------------- | ---------------------------------------------- | ----------------------------------------------------- |
-| Home            | Technical (grid, mono labels, rules)                                  | Sketch (one hero drawing, underline, arrow)    | Calm, precise, with one surprise                      |
-| About           | Technical                                                             | Sketch (small margin drawings)                 | Readable, structured, a bit of warmth                 |
-| Blog            | Technical (index-like list, metadata)                                 | Sketch (hand-drawn arrows, underline on hover) | Reading comes first; sketches never compete with text |
-| Creative Outlet | Sketch (big drawings, loose frames, tilted cards, ink/pencil texture) | Technical (coordinates, dimension lines, grid) | Clearly a different room in the same house            |
+| Area            | Dominant layer                                                        | Accent layer                                                   | Result                                                |
+| --------------- | --------------------------------------------------------------------- | -------------------------------------------------------------- | ----------------------------------------------------- |
+| Home            | Technical (grid, mono labels, rules)                                  | Sketch (one hero drawing, underline, arrow)                    | Calm, precise, with one surprise                      |
+| About           | Technical                                                             | Sketch (small margin drawings)                                 | Readable, structured, a bit of warmth                 |
+| Blog            | Technical (index-like list, metadata)                                 | Sketch (hand-drawn arrows, heading and row underline on hover) | Reading comes first; sketches never compete with text |
+| Creative Outlet | Sketch (big drawings, loose frames, tilted cards, ink/pencil texture) | Technical (coordinates, dimension lines, grid)                 | Clearly a different room in the same house            |
 
 Rule of thumb: in Home, About and Blog roughly 80% technical and 20% sketch. In Creative Outlet reverse it.
 
 ## 2. Colors
 
-Implement as CSS variables in `app/globals.css` (light in `:root`, dark in the `prefers-color-scheme: dark` block, as today), and expose them through `@theme inline` so Tailwind gets `bg-paper`, `text-ink`, `text-pencil`, `border-grid`, `text-accent`, and so on.
+Implement as CSS variables in `app/globals.css` (light in `:root`, dark in the `prefers-color-scheme: dark` block, as today), and expose them through `@theme inline` so Tailwind gets `bg-paper`, `text-ink`, `text-pencil`, `border-grid`, `text-accent`, and so on. Apply `accent` only under `hover:` variants and for margin notes.
 
-| Token         | Light            | Dark             | Use                                                             |
-| ------------- | ---------------- | ---------------- | --------------------------------------------------------------- |
-| `paper`       | `#FAF8F3`        | `#0F1115`        | Page background (warm off-white, ink-black)                     |
-| `ink`         | `#1A1A1A`        | `#ECEAE4`        | Headlines, body text, primary strokes                           |
-| `pencil`      | `#5C5C58`        | `#A3A39C`        | Secondary text, metadata, labels, soft strokes                  |
-| `grid`        | `#1A1A1A` at 8%  | `#ECEAE4` at 8%  | Background grid, hairlines, dividers (decoration only)          |
-| `grid-strong` | `#1A1A1A` at 20% | `#ECEAE4` at 20% | Card and frame borders, corner ticks (visible but quiet)        |
-| `accent`      | `#2347C5`        | `#8FB0FF`        | Links, focus ring, underline and arrow strokes (blueprint blue) |
-| `led`         | `#1E7A46`        | `#5BD58A`        | Status LED only (online, built, ok)                             |
+There is no blue. The palette is paper, ink and graphite, with one red-pencil accent, like a drawing that someone has corrected.
 
-Contrast (WCAG AA needs 4.5:1 for normal text, 3:1 for large text and UI components). Values are calculated estimates, verify with a checker when implementing:
+| Token         | Light                  | Dark                  | Contrast on `paper` (light / dark) | Use                                                                                         |
+| ------------- | ---------------------- | --------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------- |
+| `paper`       | `#FAF8F3`              | `#1E2326`             | n/a                                | Page background (warm paper white, dark slate like a chalkboard)                            |
+| `ink`         | `#1B1B1A`              | `#E8E6DF`             | 16.2:1 / 12.7:1                    | Headlines, body text, links, primary strokes, focus ring                                    |
+| `pencil`      | `#575757`              | `#A4A8A3`             | 6.8:1 / 6.6:1                      | Technical layer: secondary text, mono labels, dimension lines, link underlines              |
+| `grid`        | `#1B1B1A` at 8%        | `#E8E6DF` at 8%       | decorative                         | Background grid, hairlines, dividers (decoration only)                                      |
+| `grid-strong` | `#1B1B1A` at 20%       | `#E8E6DF` at 20%      | decorative                         | Card and frame borders, corner ticks (visible but quiet)                                    |
+| `accent`      | `#B3261E` (red pencil) | `#F2796E` (red chalk) | 6.2:1 / 5.9:1                      | Hover states and margin notes only. Never for surfaces, never for running text, never focus |
+| `led`         | `#1E7A46`              | `#5BD58A`             | 5.0:1 / 8.6:1                      | Status LED only, always with a text label                                                   |
 
-- `ink` on `paper`: about 16:1 light, about 15:1 dark. Passes AAA.
-- `pencil` on `paper`: about 6.5:1 light, about 7.5:1 dark. Passes AA for body-sized text.
-- `accent` on `paper`: about 7:1 light, about 8.5:1 dark. Passes AA for text and focus rings.
-- `grid` is decorative, so it has no contrast requirement. Never put text meaning into it.
-- `led` is never the only signal. Always pair with a text label ("online").
-- Do not put `pencil` sans text below 14 px or at reduced opacity. Mono labels in `pencil` may go down to 12 px (they are short and uppercase), never smaller. Do not use `accent` as a background for white text without checking.
+Contrast ratios are calculated with the WCAG 2.x relative luminance formula (sRGB linearized, `(L1 + 0.05) / (L2 + 0.05)`) against `paper` of the same mode. AA needs 4.5:1 for normal text and 3:1 for large text and UI components. Recheck with a checker if a hex value changes.
 
-Dark mode is not an inversion. Paper is near-black with a slight blue tint, ink is warm off-white, strokes stay thin so they do not glow.
+- `ink`, `pencil`, `accent` and `led` all reach 4.5:1 or more in both modes, so they are safe for text of any size. `ink` passes AAA.
+- UI lines that carry meaning (button strokes, focus ring, link underlines) use `ink` or `pencil` (at least 6.6:1, requirement 3:1). The focus ring uses `ink` (16.2:1 light, 12.7:1 dark).
+- `grid` and `grid-strong` are decoration (about 1.1:1 and 1.5:1). Cards and frames are identified by their content and their link target, never by the border alone. Never put meaning into them. Hex with alpha: `#1B1B1A14` / `#1B1B1A33` light, `#E8E6DF14` / `#E8E6DF33` dark.
+- `led` is never the only signal. Always pair with a text label. While the LED is decorative (detail 2), the label must not claim a status (no "online").
+- Do not put `pencil` sans text below 14 px or at reduced opacity. Mono labels in `pencil` may go down to 12 px (they are short and uppercase), never smaller.
+
+**Role of the red pencil (`accent`).** Rare on purpose, like a correction pen. Allowed: hover states (link underline, button stroke, card title underline) and margin notes (a short Caveat note with a small arrow, including the notes shown in Annotate mode; Annotate dimension lines stay `pencil`). Not allowed: backgrounds, filled shapes, running text, the focus ring, current-page markers, status. Budget: Home, About and Blog at most one margin note per screen, Annotate notes included. In Creative Outlet a few more are fine.
+
+**Focus ring.** `outline-2 outline-offset-2 outline-ink` on `:focus-visible`. Red is reserved for hover, so focus must not depend on it, and a keyboard user must see focus with exactly the same clarity in both modes. A 2 px ink outline with a 2 px paper gap has 16.2:1 (light) and 12.7:1 (dark), far above 3:1, and works on top of the grid and next to red hover states. Hover and focus are therefore separate signals and can appear together without clashing.
+
+**Dark mode is not an inversion.** Paper is dark slate with a slight green-blue tint, like a chalkboard. Ink is warm chalk, graphite is a softened grey, the red is a lighter chalk red that holds contrast on dark. Strokes stay thin so they do not glow.
 
 ## 3. Typography
 
-| Role                 | Font                                 | Use                                                           |
-| -------------------- | ------------------------------------ | ------------------------------------------------------------- |
-| Sans (text)          | Geist Sans (already via `next/font`) | Body text, headlines, all running text                        |
-| Mono (technical)     | Geist Mono (already via `next/font`) | Labels, coordinates, metadata, dates, nav, dimension text     |
-| Handwriting (accent) | Caveat, alternative Reenie Beanie    | Short annotations only (1 to 5 words), via `next/font/google` |
+| Role                 | Font                                 | Use                                                        |
+| -------------------- | ------------------------------------ | ---------------------------------------------------------- |
+| Sans (text)          | Geist Sans (already via `next/font`) | Body text, headlines, all running text                     |
+| Mono (technical)     | Geist Mono (already via `next/font`) | Labels, coordinates, metadata, dates, nav, dimension text  |
+| Handwriting (accent) | Caveat                               | Button labels, margin notes, small accents (1 to 5 words)  |
+| Handwriting (large)  | Reenie Beanie                        | Large decorative headings in Creative Outlet only (32 px+) |
 
-- **Caveat** is the default: legible at small sizes, reads as a quick pen note. **Reenie Beanie** is rougher and more pencil-like, only for large decorative notes in Creative Outlet. Both are Google Fonts loaded with `next/font/google` (self-hosted at build time, no new npm package). Load only one weight and the `latin` subset.
-- Expose as `--font-hand` and Tailwind `font-hand`, same pattern as `--font-mono`.
-- Handwriting is **never** body text, never in navigation items, never below 18 px, and never the only carrier of information. Mark purely decorative notes `aria-hidden` when they repeat nearby text.
+- **Decision:** **Caveat** is used for button labels, margin notes and small accents. It is legible at small sizes and reads as a quick pen note. **Reenie Beanie** is rougher and more pencil-like and is used only for large decorative headings in Creative Outlet, from about 32 px up (it is too thin and loose below that). Both are Google Fonts loaded with `next/font/google` (self-hosted at build time, no new npm package). Load one weight each and the `latin` subset. Load Reenie Beanie only where Creative Outlet needs it.
+- Expose as `--font-hand` (Caveat) and `--font-display-hand` (Reenie Beanie), Tailwind `font-hand` and `font-display-hand`, same pattern as `--font-mono`.
+- Handwriting is **never** body text, never in navigation items, never in forms, never below 18 px (Caveat) or 32 px (Reenie Beanie), and never the only carrier of information. Button labels and headings in handwriting are real text, short (1 to 3 words), with enough contrast. Mark purely decorative notes `aria-hidden` when they repeat nearby text.
 - Headlines: tight tracking (`-0.02em`) and leading (about 1.1). Body: normal tracking, leading 1.6 to 1.75, line length 60 to 70 characters (`max-w-prose`-like). Mono labels: small caps look via `uppercase tracking-wider text-xs`, never below 12 px.
 
 ## 4. UI elements
 
-Common accessibility rules for everything below: visible focus ring (`outline-2 outline-offset-2 outline-accent` on `:focus-visible`), touch target at least 44 x 44 px (use padding or a pseudo-element, not just a bigger font), hover effects only inside `@media (hover: hover)`, state never conveyed by color alone.
+Common accessibility rules for everything below: visible focus ring (`outline-2 outline-offset-2 outline-ink` on `:focus-visible`, never red, see section 2), touch target at least 44 x 44 px (use padding or a pseudo-element, not just a bigger font), hover effects only inside `@media (hover: hover) and (pointer: fine)`, state never conveyed by color alone. Only exception to 44 px: inline links inside running text (WCAG 2.2, 2.5.8 inline exception). Nav items, list rows, buttons and toggles always meet 44 px.
 
-| Element               | Look                                                                                                                                                                                                            | Use                                                                         | Accessibility                                                                                                                                     |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Buttons**           | Real `<button>` or `<a>` with text in Geist Mono or Sans. Border is a slightly irregular hand-drawn rounded rectangle (inline SVG stroke, `currentColor`). On hover the stroke redraws, on press `scale(0.97)`. | Few primary actions (read article, send mail).                              | Min 44 x 44 px. Text is real text, the sketch is `aria-hidden` and `pointer-events-none`. Focus ring stays a clean rectangle, not the wobbly one. |
-| **Links**             | Inline: `accent` text with a hand-drawn wavy underline (SVG stroke). Hover: underline redraws.                                                                                                                  | Inside text and lists.                                                      | Underline always present, not only on hover. In lists the whole row is the target (min 44 px high).                                               |
-| **Frames and cards**  | Thin 1 px `grid-strong` border with small corner tick marks (like a drawing sheet). In Creative Outlet: loose hand-drawn frame, slight rotation (max 1.5 deg).                                                  | Group content, Creative Outlet entries.                                     | Rotation is decoration, text stays readable. Whole card is one link target, one focus ring.                                                       |
-| **Underlines**        | Single or double hand-drawn stroke under a keyword. Max one per screen section.                                                                                                                                 | Emphasis, hover on headings.                                                | Decorative. Do not use it to replace real emphasis (`<em>`, `<strong>`).                                                                          |
-| **Arrows**            | Curved hand-drawn arrow pointing from a note to a thing.                                                                                                                                                        | Connect annotation and element, hint to next step.                          | `aria-hidden`. Never the only cue.                                                                                                                |
-| **Grid**              | Fine 24 px grid in `grid` color as background, fading out toward edges (mask). Optional heavier line every 5th.                                                                                                 | Page background in Home, About, Blog (subtle), stronger in Creative Outlet. | Decoration only. Must not lower text contrast, so keep it at 8% or below behind text.                                                             |
-| **Dimension lines**   | Thin line with end ticks and a mono label (`1440 px`, `W 640`).                                                                                                                                                 | Measure a hero drawing, headline, or card.                                  | `aria-hidden` unless the value carries meaning.                                                                                                   |
-| **Coordinate labels** | Small mono text such as `X 024 / Y 112` or `N 53.55 E 9.99` in corners and next to sketches.                                                                                                                    | Technical accent.                                                           | Mono, `pencil` color, at least 12 px. `aria-hidden` when decorative.                                                                              |
-| **Navigation**        | Mono, uppercase labels in a plain row or list, current page marked with an accent underline and `aria-current="page"`. Mobile: all links visible or a simple disclosure, no hidden gestures.                    | Header on every page.                                                       | 44 px targets, keyboard order = visual order, skip link to `main`.                                                                                |
+| Element               | Look                                                                                                                                                                                                                                                             | Use                                                                         | Accessibility                                                                                                                                         |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Buttons**           | Real `<button>` or `<a>` with a short label (1 to 3 words) in Caveat (at least 20 px). Border is a slightly irregular hand-drawn rounded rectangle (inline SVG stroke, `currentColor` = `ink`). On hover the stroke redraws in `accent`, on press `scale(0.97)`. | Few primary actions (read article, send mail).                              | Min 44 x 44 px. Text is real text, the sketch is `aria-hidden` and `pointer-events-none`. Focus ring stays a clean ink rectangle, not the wobbly one. |
+| **Links**             | Inline: `ink` text with a hand-drawn wavy underline in `pencil` (SVG stroke). Hover: underline redraws in `accent`. Visited and current links need no extra color.                                                                                               | Inside text and lists.                                                      | Underline always present, not only on hover, so links are recognizable without color. In lists the whole row is the target (min 44 px high).          |
+| **Frames and cards**  | Thin 1 px `grid-strong` border with small corner tick marks (like a drawing sheet). In Creative Outlet: loose hand-drawn frame, slight rotation (max 1.5 deg).                                                                                                   | Group content, Creative Outlet entries.                                     | Rotation is decoration, text stays readable. Whole card is one link target, one focus ring.                                                           |
+| **Underlines**        | Single or double hand-drawn stroke under a keyword. Max one per screen section.                                                                                                                                                                                  | Emphasis, hover on headings.                                                | Decorative. Do not use it to replace real emphasis (`<em>`, `<strong>`).                                                                              |
+| **Arrows**            | Curved hand-drawn arrow pointing from a note to a thing. `pencil` by default, `accent` when it belongs to a red margin note.                                                                                                                                     | Connect annotation and element, hint to next step.                          | `aria-hidden`. Never the only cue.                                                                                                                    |
+| **Grid**              | Fine 24 px grid in `grid` color as background, fading out toward edges (mask). Optional heavier line every 5th.                                                                                                                                                  | Page background in Home, About, Blog (subtle), stronger in Creative Outlet. | Decoration only. Must not lower text contrast, so keep it at 8% or below behind text.                                                                 |
+| **Dimension lines**   | Thin line with end ticks and a mono label (`1440 px`, `W 640`).                                                                                                                                                                                                  | Measure a hero drawing, headline, or card.                                  | `aria-hidden` unless the value carries meaning.                                                                                                       |
+| **Coordinate labels** | Small mono text such as `X 024 / Y 112` or `N 53.55 E 9.99` in corners and next to sketches.                                                                                                                                                                     | Technical accent.                                                           | Mono, `pencil` color, at least 12 px. `aria-hidden` when decorative.                                                                                  |
+| **Navigation**        | Mono, uppercase labels in a plain row or list, current page marked with a solid `ink` underline and `aria-current="page"` (red is for hover only). Mobile: all links visible or a simple disclosure, no hidden gestures.                                         | Header on every page.                                                       | 44 px targets, keyboard order = visual order, skip link to `main`.                                                                                    |
 
 ## 5. Motion
 
@@ -84,7 +90,7 @@ No animation library. CSS only (and tiny inline `pathLength="1"` on SVG shapes).
 
 - SVG paths carry `pathLength="1"`. CSS: `stroke-dasharray: 1; stroke-dashoffset: 1;` then animate to `0`.
 - Duration 1.2 to 2 s per sketch, `cubic-bezier(0.77, 0, 0.175, 1)` (ease-in-out, it is on-screen movement). Several paths in one drawing: stagger 80 to 150 ms.
-- Triggers: hero sketches draw once on page load (after first paint). Others draw once when they enter the viewport (`IntersectionObserver`, `once`, threshold 0.3). This needs one small client component (`"use client"`) that only toggles a class; the sketches themselves stay server-rendered. Never loop. Only exception: the Home Lab LED pulse (detail 2), which is tiny, slow and paused under reduced motion.
+- Triggers: hero sketches draw once on page load (after first paint). Others draw once when they enter the viewport (`IntersectionObserver`, `once`, threshold 0.3). Client components (`"use client"`) only where state is really needed: the viewport trigger (toggles a class), the Annotate toggle and the page-width dimension line (resize). Keep each one small; sketches and everything else stay server-rendered, and hover effects stay in CSS (`:hover`, `group-hover`, `:has()`). Never loop. Only exception: the Home Lab LED pulse (detail 2), which is tiny, slow and paused under reduced motion. All other motion is a single transition per interaction (hover, press, toggle).
 - Animate only `stroke-dashoffset`, `transform` and `opacity`.
 
 **Hover details**
@@ -92,21 +98,22 @@ No animation library. CSS only (and tiny inline `pathLength="1"` on SVG shapes).
 - Underlines and button frames redraw in 250 to 350 ms, `cubic-bezier(0.23, 1, 0.32, 1)`.
 - Buttons and cards: `scale(0.97)` on `:active`, 100 to 160 ms.
 - Everything hover-related sits in `@media (hover: hover) and (pointer: fine)`.
-- Navigation and keyboard actions are never animated.
+- Page transitions and keyboard focus changes are never animated. Hover effects on nav links (underline redraw) are fine.
 
 **Reduced motion**
 
 - With `prefers-reduced-motion: reduce`, sketches are shown **fully drawn immediately**: `stroke-dashoffset: 0`, no transition, no delay.
 - Also remove parallax, rotation on hover and any looping. Color and opacity changes that aid comprehension may stay (under 200 ms).
+- Hover redraws of underlines and button frames become an instant color change, and `scale` on `:active` is removed.
 - Default state without JavaScript is also fully drawn. The hidden start state is applied only when JS and motion are available, so nothing is ever stuck invisible.
 
 ## 6. Five playful details
 
 1. **Page-width dimension line:** a thin line under the header with end ticks that measures the current content width, label updates on resize (`W 640 px`). Mono, `aria-hidden`.
-2. **Home Lab status LED:** a small LED next to the nav or footer with a label like `home lab: online`. Static green dot plus slow 4 s opacity pulse (paused under reduced motion). Text label makes the status readable without color.
-3. **Cursor coordinates:** on desktop with a fine pointer, a tiny mono readout in the corner shows the pointer position on the grid (`X 482 / Y 210`). Hidden on touch and for reduced motion users. Pure decoration, no layout shift.
-4. **Robot arm that points:** the robot-arm sketch in the hero has a gripper that tilts a few degrees toward the hovered section link (CSS transform on one path, transform-origin at the joint). Without hover or with reduced motion it rests in a neutral pose.
-5. **Sketch becomes blueprint:** each sketch has a small toggle or hover that adds its dimension lines and part labels (`M1`, `Ø 24`, `1:2`), like an engineer annotating a doodle. The ship gets a waterline and mast heights, the lighthouse a height line. The annotation lines are extra SVG paths, the labels are HTML mono text. The toggle is a real `<button>` with `aria-pressed`, a visible label (e.g. `show dimensions`) and a 44 × 44 px target; hover is only an extra on fine pointers, never the only way.
+2. **Home Lab status LED:** a small LED next to the nav or footer with a fixed, neutral label `home lab` (no status word, because nothing is measured). Green dot plus slow 4 s opacity pulse (paused under reduced motion, then a static dot). It is pure decoration for now and shows no real status. A real status (for example from a home lab health check) would be its own project later, with its own data, error state and label. Until then, keep the label fixed and the element `aria-hidden` or clearly marked as decorative. It is the only status color on the site.
+3. **Gear that ticks:** a small gear sketch (technical layer, `pencil`) next to a section link or list row turns by exactly one tooth (about 30 degrees, 300 ms, `cubic-bezier(0.23, 1, 0.32, 1)`) when you hover the row, and turns back when the pointer leaves. One transition per hover, no loop, `aria-hidden`, fine pointers only. Under reduced motion the gear does not move. Pure CSS transform (`group-hover`), no JavaScript, no dependency.
+4. **Robot arm that points:** the robot-arm sketch in the hero has a gripper that tilts a few degrees toward the hovered section link (CSS transform on one path, transform-origin at the joint, triggered via `:has()` on the hero container, no JavaScript). Without hover or with reduced motion it rests in a neutral pose.
+5. **Annotate:** each sketch has a small toggle that lays an engineer's markup over the doodle, like someone correcting a drawing. Dimension lines (waterline and mast heights for the ship, a height line for the lighthouse) and part labels (`M1`, `Ø 24`, `1:2`) appear in graphite (`pencil`), and one short margin note in red pencil (up to two in Creative Outlet, see the budget in section 2) (`accent`, Caveat, for example `too tall?`, `check!`) point at the drawing. The annotation lines are extra SVG paths drawn in with the usual self-drawing rule, the labels are HTML mono text, the margin notes are `aria-hidden` decoration. The toggle is a real `<button>` with `aria-pressed`, a visible label `Annotate` and a 44 × 44 px target; hover is only an extra on fine pointers, never the only way. (The old name "blueprint" no longer fits without blue, "Annotate" describes what happens and keeps the engineer-meets-artist idea.)
 
 ## 7. What we deliberately do NOT do
 
@@ -116,7 +123,8 @@ No animation library. CSS only (and tiny inline `pathLength="1"` on SVG shapes).
 - No heavy animation libraries (GSAP, Lottie and similar). CSS is enough.
 - No copying of inspirations. We take principles, not layouts, drawings or code.
 - No pixel sketches: no PNG or JPG drawings, only vector line art.
-- No autoplay sound, no looping attention-grabbing animation (the LED pulse is the single, deliberately quiet exception), no cursor replacement.
+- No autoplay sound, no looping attention-grabbing animation (the LED pulse is the single, deliberately quiet exception), no cursor replacement, no readout that follows the mouse pointer.
+- No blue, and no red outside hover states and margin notes. No red surfaces, no red running text.
 - No more than one hero drawing per screen and no decoration that lowers text contrast.
 
 ## 8. Sketch files: rules and export
@@ -185,7 +193,7 @@ Looked at jhey.dev and tania.dev (desktop and 375 px). Only principles are noted
 - **Mono for the technical voice.** Small uppercase mono labels and an index-like list read as precise and honest without decoration. Matches our technical layer.
 - **A signature piece of character.** One memorable illustrated element near the top gives the site a face. For us it is the hero sketch.
 - **Playful links without noise.** Hand-marked underlines and small icons make links feel touched by a person, while text stays plain and readable.
-- **Information as quiet decoration.** Live bits (time, status, viewport size) add life without being content. Our LED and coordinate readout follow this.
+- **Information as quiet decoration.** Small ambient bits (time, status, viewport size) add life without being content. Our decorative LED, the page-width dimension line and static coordinate labels follow this.
 - **A background grid as texture.** A very faint grid adds depth and fits an engineering theme. It stays behind the content and never fights it.
 - **Mobile is the same site, not a reduced one.** Single column, same details, same type scale steps. Decorations simply get smaller or fewer.
-- **Warm paper color and consistent illustration style** make the content feel authored. A single palette plus a single accent keeps it coherent.
+- **Warm paper color and consistent illustration style** make the content feel authored. A single palette plus one sparing accent (our red pencil) keeps it coherent.

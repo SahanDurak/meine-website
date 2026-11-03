@@ -38,7 +38,7 @@ Der Dev-Server wird vom Hauptagenten gestartet. Die URL (z. B. `http://localhost
    - Desktop: `browser_resize` auf 1440 × 900
    - Handy: `browser_resize` auf 375 × 812
    - jeweils Light und Dark Mode (`browser_emulate_media` mit `colorScheme`)
-   - Dateinamen: `<seite>-<desktop|mobile>-<light|dark>.png` (landen in `.playwright-mcp/`, nicht im Repo)
+   - Dateinamen immer mit Präfix angeben: `.playwright-mcp/<seite>-<desktop|mobile>-<light|dark>.png`. Ohne Präfix landet die Datei im Repo-Root. Andere Ordner (z. B. `/tmp`) lehnt der Playwright MCP ab. `.playwright-mcp/` ist gitignored.
 3. Prüfe die Screenshots kritisch, als würdest du die Arbeit von jemand anderem reviewen:
    - Kein horizontales Scrollen, kein abgeschnittener oder überlappender Text bei 375 px
    - Abstände und Ausrichtung konsistent, klare visuelle Hierarchie

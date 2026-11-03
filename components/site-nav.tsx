@@ -9,7 +9,7 @@ const navItems = [
 
 export function SiteNav() {
   return (
-    <header className="border-b border-grid-strong">
+    <header className="border-b border-line">
       <div className="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-between gap-x-6 px-6">
         <nav aria-label="Main navigation" className="-ml-2 flex flex-wrap">
           {navItems.map((item) => (

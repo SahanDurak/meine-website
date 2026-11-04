@@ -55,3 +55,62 @@ test("home links to every section", async ({ page: browserPage }) => {
     ).toBeVisible();
   }
 });
+
+test.describe("about page", () => {
+  test("shows every section", async ({ page }) => {
+    await page.goto("/about");
+    for (const name of [
+      "Projects",
+      "Career",
+      "Education",
+      "Interests",
+      "Books",
+      "Contact",
+    ]) {
+      await expect(
+        page.getByRole("heading", { level: 2, name, exact: true }),
+      ).toBeAttached();
+    }
+  });
+
+  test("external links open safely in a new tab", async ({ page }) => {
+    await page.goto("/about");
+    const github = page
+      .getByRole("main")
+      .getByRole("link", { name: /github\.com\/SahanDurak/ });
+    await expect(github).toHaveAttribute(
+      "href",
+      "https://github.com/SahanDurak",
+    );
+    await expect(github).toHaveAttribute("target", "_blank");
+    await expect(github).toHaveAttribute("rel", "noopener noreferrer");
+
+    const external = page.locator('main a[target="_blank"]');
+    for (const link of await external.all()) {
+      await expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    }
+  });
+
+  test("e-mail can be opened and copied", async ({ page, context }) => {
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    await page.goto("/about");
+    const mail = page.locator('main a[href^="mailto:"]');
+    await expect(mail).toHaveCount(1);
+    const address = (await mail.getAttribute("href"))!.replace("mailto:", "");
+
+    await page.getByRole("button", { name: "Copy e-mail address" }).click();
+    await expect(page.getByText("Copied", { exact: true })).toBeVisible();
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+      address,
+    );
+  });
+
+  test("links to The Ball in the creative outlet", async ({ page }) => {
+    await page.goto("/about");
+    await page
+      .getByRole("main")
+      .getByRole("link", { name: /Creative Outlet/ })
+      .click();
+    await expect(page).toHaveURL("/creative");
+  });
+});

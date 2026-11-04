@@ -120,3 +120,32 @@ test.describe("about page", () => {
     await expect(page).toHaveURL("/creative");
   });
 });
+
+test.describe("home underline under robotics", () => {
+  for (const width of [375, 768, 1280]) {
+    test(`sits right under the word at ${width} px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto("/");
+      await page.evaluate(() => document.fonts.ready);
+      const box = await page
+        .getByRole("main")
+        .getByText("robotics", { exact: true })
+        .evaluate((el) => {
+          const range = document.createRange();
+          range.selectNodeContents(el.firstChild!);
+          const text = range.getBoundingClientRect();
+          const line = el.querySelector("svg")!.getBoundingClientRect();
+          return {
+            left: line.left - text.left,
+            right: line.right - text.right,
+            gap: line.top - text.bottom,
+          };
+        });
+      expect(Math.abs(box.left)).toBeLessThanOrEqual(1);
+      expect(Math.abs(box.right)).toBeLessThanOrEqual(1);
+      // Directly under the letters, not drifted towards the next line.
+      expect(box.gap).toBeGreaterThanOrEqual(-4);
+      expect(box.gap).toBeLessThanOrEqual(4);
+    });
+  }
+});

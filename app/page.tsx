@@ -46,7 +46,10 @@ export default function HomePage() {
             Engineering, and I work on software and AI solutions as a working
             student in product management. I&apos;m most curious about the place
             where{" "}
-            <span className="relative inline-block">
+            {/* leading-none: the underline follows the word's letters, not the
+                32 px line box, so it sits right under "robotics" wherever the
+                line wraps (the word itself never breaks). */}
+            <span className="relative inline-block leading-none">
               robotics
               <svg
                 aria-hidden="true"

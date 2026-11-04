@@ -54,7 +54,7 @@ Contrast ratios are calculated with the WCAG 2.x relative luminance formula (sRG
 - About sets `--pen` to `moss`, Creative Outlet to `sea` (on the page wrapper). The navigation keeps alternating on every page.
 - The theme toggle hovers in `sea`.
 - **Visible without hover (each area's pencil: Home and About `moss`, Blog and Creative Outlet `sea`):**
-  - Page heading: a loose, translucent coloured-pencil stroke (two overlapping passes, 35% opacity on the whole SVG) behind one key word (`components/pencil-stroke.tsx`). Ink on the stroke stays at 6:1 or more; `tests/palette.spec.ts` checks it. Draws itself once on load.
+  - Page heading: a loose, translucent coloured-pencil stroke: one thin pass (about 0.14 em) at 35% opacity just below the letters of one key word, so it never covers them (`components/pencil-stroke.tsx`). Its position follows the letters (`leading-none` on the word), not the line height. Ink on the stroke stays at 6:1 or more; `tests/palette.spec.ts` checks it. Draws itself once on load.
   - Navigation: the current page gets a hand-drawn loop in its area's pencil instead of an underline. The loop's shape and `aria-current="page"` carry the meaning, not the colour (moss and sea reach 5:1 or more as UI strokes).
 - Colour is never the only hover signal: the underline itself appears or redraws.
 

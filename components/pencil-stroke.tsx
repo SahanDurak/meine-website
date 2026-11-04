@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export type PencilTone = "moss" | "sea";
 
@@ -13,37 +13,29 @@ type PencilStrokeProps = {
 };
 
 /**
- * Loose, translucent coloured-pencil stroke behind a key word of a page
- * heading (brief, section 2). Two overlapping passes like a quick scribble.
- * Opacity sits on the whole SVG, so the overlap does not get darker: ink on
- * the stroke stays at 6:1 or more in both modes (checked in
- * tests/palette.spec.ts). Draws itself once; fully drawn under reduced motion.
+ * Loose, translucent coloured-pencil stroke just below a key word of a page
+ * heading (brief, section 2): one thin pass at 35% opacity, under the
+ * letters, so it never covers them (only descenders reach into it). Ink stays
+ * at 6:1 or more on it in both modes (checked in tests/palette.spec.ts).
+ * `leading-none` makes the position follow the letters, not the line height.
+ * Draws itself once; fully drawn under reduced motion.
  */
 export function PencilStroke({ tone, children }: PencilStrokeProps) {
   return (
-    <span className="relative isolate inline-block">
+    <span className="relative isolate inline-block leading-none">
       <svg
         aria-hidden="true"
         data-pencil-stroke={tone}
-        viewBox="0 0 200 24"
+        viewBox="0 0 200 10"
         preserveAspectRatio="none"
         fill="none"
         stroke="currentColor"
+        strokeWidth={6}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={`sketch-draw pointer-events-none absolute -inset-x-[0.12em] bottom-[0.02em] -z-10 h-[0.5em] w-[calc(100%+0.24em)] opacity-35 ${toneClass[tone]}`}
+        className={`sketch-draw pointer-events-none absolute -inset-x-[0.08em] top-[0.86em] -z-10 h-[0.14em] w-[calc(100%+0.16em)] opacity-35 ${toneClass[tone]}`}
       >
-        <path
-          pathLength={1}
-          strokeWidth={11}
-          d="M6 15 C 46 9, 92 17, 136 11 S 182 10, 194 12"
-        />
-        <path
-          pathLength={1}
-          strokeWidth={7}
-          d="M14 19 C 60 15, 110 20, 150 16 S 186 15, 192 17"
-          style={{ "--i": 1 } as CSSProperties}
-        />
+        <path pathLength={1} d="M4 6 C 50 3, 104 7, 150 4 S 190 5, 196 4" />
       </svg>
       {children}
     </span>

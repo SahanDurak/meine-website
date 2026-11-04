@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DuotoneFilters } from "@/components/duotone-filters";
 import { LoopVideo } from "@/components/loop-video";
+import { PencilStroke } from "@/components/pencil-stroke";
 import { creativeEntries } from "@/content/creative/entries";
 
 export const metadata: Metadata = {
@@ -31,7 +32,7 @@ export default function CreativePage() {
         {/* Large handwritten heading: Creative Outlet only, 32 px and up, own
             letter spacing kept (no tracking), no faux bold. */}
         <h1 className="font-hand text-4xl leading-tight uppercase sm:text-5xl">
-          Creative Outlet
+          <PencilStroke tone="sea">Creative</PencilStroke> Outlet
         </h1>
         <p className="text-pencil">
           Drawings, animations and other things made for fun, newest first.

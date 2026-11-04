@@ -55,6 +55,37 @@ for (const mode of ["light", "dark"] as const) {
       }
     });
 
+    test("heading stroke keeps ink readable and nav loop matches", async ({
+      page,
+    }) => {
+      for (const [path, tone] of [
+        ["/", "moss"],
+        ["/about", "moss"],
+        ["/blog", "sea"],
+        ["/creative", "sea"],
+      ] as const) {
+        await page.goto(path);
+        await expect(
+          page.locator(`[aria-current="page"] [data-current-loop="${tone}"]`),
+        ).toBeAttached();
+        const stroke = page.locator(`h1 [data-pencil-stroke="${tone}"]`);
+        await expect(stroke).toBeAttached();
+
+        // Worst case: ink over the stroke colour blended onto paper.
+        const opacity = Number(
+          await stroke.evaluate((el) => getComputedStyle(el).opacity),
+        );
+        const colors = await tokenColors(page);
+        const band = colors[tone].map(
+          (value, i) => opacity * value + (1 - opacity) * colors.paper[i],
+        ) as Rgb;
+        expect(
+          contrast(colors.ink, band),
+          `ink on ${tone} stroke`,
+        ).toBeGreaterThanOrEqual(4.5);
+      }
+    });
+
     test("video duotone matches ink and paper", async ({ page }) => {
       await page.goto("/creative");
       const colors = await tokenColors(page);

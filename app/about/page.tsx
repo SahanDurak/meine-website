@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PencilStroke } from "@/components/pencil-stroke";
 import { CopyEmailButton } from "@/components/about/copy-email-button";
 import { MarginNote } from "@/components/about/margin-note";
 import { ProjectCard } from "@/components/about/project-card";
@@ -31,7 +32,7 @@ export default function AboutPage() {
     <div className="flex flex-col gap-14 [--pen:var(--moss)] sm:gap-16">
       <section className="flex flex-col gap-6">
         <h1 className="text-4xl leading-[1.1] font-semibold tracking-[-0.02em] text-balance sm:text-5xl">
-          About
+          <PencilStroke tone="moss">About</PencilStroke>
         </h1>
         <div className="flex flex-col gap-4">
           {intro.map((paragraph) => (

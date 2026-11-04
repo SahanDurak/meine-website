@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import { DimensionLine } from "@/components/dimension-line";
+import { PencilStroke } from "@/components/pencil-stroke";
 import { SectionLink } from "@/components/section-link";
 import { Sketch } from "@/components/sketch";
 
@@ -38,7 +39,7 @@ export default function HomePage() {
       <section className="grid gap-x-10 gap-y-8 sm:grid-cols-[1fr_15rem]">
         <div className="flex flex-col gap-6">
           <h1 className="text-4xl leading-[1.1] font-semibold tracking-[-0.02em] text-balance sm:text-5xl">
-            Hi, I&apos;m Sahan.
+            Hi, I&apos;m <PencilStroke tone="moss">Sahan.</PencilStroke>
           </h1>
           <p className="max-w-xl text-lg leading-8">
             I study Industrial Engineering with a focus on Mechanical

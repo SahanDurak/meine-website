@@ -1,27 +1,54 @@
 @import "tailwindcss";
 
-/* Color tokens: see docs/design-brief.md, section 2. */
+/* Color tokens: see docs/design-brief.md, section 2.
+   Each token holds both modes via light-dark(). `color-scheme` picks the
+   side: the system preference by default, or the manual choice stored in
+   data-theme on <html> (set before first paint, see theme-script.tsx). */
 :root {
-  --paper: #fbf6ea;
-  --ink: #2a2118;
-  --pencil: #6b5e50;
-  --line: #2a211833;
-  --accent: #a8281c;
-  --led: #2e7436;
+  color-scheme: light dark;
 
-  /* Very faint paper grain (feTurbulence noise, about 3% opacity). */
-  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 0 0.09 0.5 0 0 0 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  --paper: light-dark(#fbf6ea, #27221d);
+  --ink: light-dark(#2a2118, #ede4d3);
+  --pencil: light-dark(#6b5e50, #b3a892);
+  --line: light-dark(#2a211833, #ede4d333);
+  --accent: light-dark(#a8281c, #f08a74);
+  --led: light-dark(#2e7436, #6fcf8a);
+
+  /* Very faint paper grain (feTurbulence noise, about 3% opacity). An image
+     cannot use light-dark(), so the dark variant is switched below. */
+  --grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 0 0.09 0.5 0 0 0 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.93 0 0 0 0 0.89 0 0 0 0 0.83 0.5 0 0 0 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  --paper-grain: var(--grain-light);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper-grain: var(--grain-dark);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #27221d;
-    --ink: #ede4d3;
-    --pencil: #b3a892;
-    --line: #ede4d333;
-    --accent: #f08a74;
-    --led: #6fcf8a;
-    --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.93 0 0 0 0 0.89 0 0 0 0 0.83 0.5 0 0 0 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  :root:not([data-theme="light"]) {
+    --paper-grain: var(--grain-dark);
+  }
+}
+
+/* `dark:` follows the same rule as the tokens: manual choice first, else the
+   system preference. */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(
+      :root:not([data-theme="light"]),
+      :root:not([data-theme="light"]) *
+    ) {
+      @slot;
+    }
   }
 }
 

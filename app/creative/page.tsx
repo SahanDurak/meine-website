@@ -25,7 +25,9 @@ export default function CreativePage() {
   return (
     <section className="flex flex-col gap-12">
       <header className="flex flex-col gap-3">
-        <h1 className="text-3xl font-semibold tracking-[-0.02em]">
+        {/* Large handwritten heading: Creative Outlet only, 32 px and up, own
+            letter spacing kept (no tracking), no faux bold. */}
+        <h1 className="font-hand text-4xl leading-tight uppercase sm:text-5xl">
           Creative Outlet
         </h1>
         <p className="text-pencil">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Caveat, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { SiteNav } from "@/components/site-nav";
 import { ThemeScript } from "@/components/theme-script";
 import "./globals.css";
@@ -14,11 +15,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Handwriting accent: margin notes and button labels only, never body text.
-const caveat = Caveat({
-  variable: "--font-caveat",
-  subsets: ["latin"],
-  weight: "500",
+// Sahan's own handwriting: margin notes, button labels and large Creative
+// Outlet headings only, never body text (brief, section 3). No adjusted
+// Arial fallback, so glyphs the font lacks (umlauts, @, #) fall back to the
+// text font through --font-hand in globals.css instead. Always set in
+// uppercase for now: the lowercase glyphs are drawn too small to read at
+// margin-note sizes (x-height about 16% of the em, Geist about 53%).
+const sahanHand = localFont({
+  src: "../public/fonts/sahan-hand.ttf",
+  variable: "--font-sahan-hand",
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
@@ -36,7 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       // The inline theme script may set data-theme before React hydrates.
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${sahanHand.variable} h-full antialiased`}
     >
       <head>
         <ThemeScript />

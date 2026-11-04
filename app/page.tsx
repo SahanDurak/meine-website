@@ -42,10 +42,38 @@ export default function HomePage() {
             Hi, I&apos;m <PencilStroke tone="moss">Sahan.</PencilStroke>
           </h1>
           <p className="max-w-xl text-lg leading-8">
-            I study Industrial Engineering with a focus on Mechanical
-            Engineering, and I work on software and AI solutions as a working
-            student in product management. I&apos;m most curious about the place
-            where{" "}
+            I study Industrial Engineering and I&apos;ve been into tech since I
+            was a kid, which pretty much shows in everything I{" "}
+            {/* nowrap: the face never ends up alone on its own line. */}
+            <span className="whitespace-nowrap">
+              do.
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 40 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.25"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="sketch-draw ml-2 inline-block h-7 w-11 -rotate-6 align-middle text-pencil"
+              >
+                <path
+                  pathLength={1}
+                  d="M9.5 5 C 11.5 4.6, 12 7.4, 10 7.6 S 8.2 5.6, 9.8 5.4"
+                />
+                <path
+                  pathLength={1}
+                  d="M29.8 4.6 C 31.8 4.4, 32 7.2, 30.2 7.3 S 28.6 5.2, 30 5"
+                />
+                <path
+                  pathLength={1}
+                  d="M8 17 C 14 18.2, 19 15.8, 25 17.4 S 32 17, 34 16.2"
+                />
+              </svg>
+            </span>
+          </p>
+          <p className="max-w-xl text-lg leading-8">
+            I love working on projects that cross disciplines, like{" "}
             {/* leading-none: the underline follows the word's letters, not the
                 32 px line box, so it sits right under "robotics" wherever the
                 line wraps (the word itself never breaks). */}
@@ -69,7 +97,12 @@ export default function HomePage() {
                 />
               </svg>
             </span>{" "}
-            and AI meet. This site is where I write, collect and try things out.
+            &amp; AI. Outside of that: nature (mountains and the sea most of
+            all), travelling and sports.
+          </p>
+          <p className="max-w-xl text-lg leading-8">
+            This is where I share my thoughts and the cool projects I build in
+            my &quot;free time&quot;, if I still have any, haha.
           </p>
         </div>
 

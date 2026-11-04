@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { DimensionLine } from "@/components/dimension-line";
 import { PencilStroke } from "@/components/pencil-stroke";
 import { SectionLink } from "@/components/section-link";
-import { Sketch } from "@/components/sketch";
+import { TapedPhoto } from "@/components/taped-photo";
 
 export const metadata: Metadata = {
   title: { absolute: "Sahan – Engineering, Robotics and AI" },
@@ -74,19 +74,7 @@ export default function HomePage() {
         </div>
 
         <div className="flex items-start gap-3 sm:flex-col sm:gap-2">
-          <figure
-            aria-hidden="true"
-            className="flex w-44 flex-none flex-col gap-2 border border-line p-3 sm:w-full"
-          >
-            <Sketch
-              name="robot-arm"
-              draw
-              className="aspect-square w-full text-ink"
-            />
-            <span className="self-end font-mono text-xs tracking-wider text-pencil">
-              FIG. 01 · 1:2
-            </span>
-          </figure>
+          <TapedPhoto className="w-44 flex-none sm:w-full" />
           {/* The only margin note on this screen. */}
           <p
             aria-hidden="true"

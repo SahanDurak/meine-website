@@ -43,7 +43,7 @@ export const intro: string[] = [
 ];
 
 /** Short handwritten margin note next to the intro (decorative). */
-export const introNote = "code & pencil";
+export const introNote = "code + pencil";
 
 export const projects: Project[] = [
   {

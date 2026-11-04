@@ -3,13 +3,13 @@ type MarginNoteProps = {
   className?: string;
 };
 
-// Decorative Caveat note with a small hand-drawn arrow. Never the only carrier
+// Decorative handwritten note with a small hand-drawn arrow. Never the only carrier
 // of information, so it is hidden from assistive tech.
 export function MarginNote({ children, className = "" }: MarginNoteProps) {
   return (
     <p
       aria-hidden="true"
-      className={`flex items-start gap-1 font-hand text-xl leading-tight text-accent ${className}`}
+      className={`flex items-start gap-1 font-hand text-xl leading-tight text-accent uppercase ${className}`}
     >
       <svg
         viewBox="0 0 28 32"

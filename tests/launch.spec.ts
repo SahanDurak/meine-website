@@ -41,17 +41,31 @@ test.describe("legal pages", () => {
     }
     await expect(main.locator("article")).toHaveAttribute("lang", "de");
   });
+});
 
-  // The legal texts still contain "[Bitte prüfen]" markers for the owner to
-  // resolve before launch; they are allowed here for now, other placeholders
-  // are not.
-  for (const path of ["/impressum", "/datenschutz"]) {
-    test(`${path} shows no placeholders`, async ({ page }) => {
-      await page.goto(path);
-      await expect(page.getByRole("main")).not.toContainText(
-        /TODO|example\.com|lorem/i,
-      );
-    });
+// Every page in the sitemap (so every published article) plus the fixed
+// pages. The legal texts still contain "[Bitte prüfen]" markers for the
+// owner to resolve before launch; they are allowed for now, other
+// placeholders are not.
+test("no page shows placeholders", async ({ page, request }) => {
+  const placeholder = /TODO|FIXME|example\.com|lorem ipsum/i;
+  const xml = await (await request.get("/sitemap.xml")).text();
+  const sitemapPaths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+    ([, url]) => new URL(url).pathname,
+  );
+  const paths = [...new Set([...pages, ...sitemapPaths])];
+  // Guard against an empty sitemap: at least one article must be covered.
+  expect(paths.some((path) => path.startsWith("/blog/"))).toBe(true);
+
+  for (const path of paths) {
+    const response = await page.goto(path);
+    expect(response?.status(), path).toBe(200);
+    await expect(page.getByRole("main"), path).not.toContainText(placeholder);
+    expect(await page.title(), path).not.toMatch(placeholder);
+    const description = await page
+      .locator('meta[name="description"]')
+      .getAttribute("content");
+    expect(description ?? "", path).not.toMatch(placeholder);
   }
 });
 

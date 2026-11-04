@@ -149,3 +149,26 @@ test.describe("home underline under robotics", () => {
     });
   }
 });
+
+test.describe("home portrait", () => {
+  for (const width of [375, 1280]) {
+    test(`is loaded and fits the page at ${width} px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto("/");
+      const photo = page
+        .getByRole("main")
+        .getByRole("img", { name: "Portrait of Sahan Durak" });
+      await expect(photo).toBeVisible();
+      // Loaded eagerly as the hero image, not lazily.
+      await expect(photo).not.toHaveAttribute("loading", "lazy");
+      await expect
+        .poll(() => photo.evaluate((img: HTMLImageElement) => img.naturalWidth))
+        .toBeGreaterThan(0);
+
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth > window.innerWidth,
+      );
+      expect(overflow).toBe(false);
+    });
+  }
+});

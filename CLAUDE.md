@@ -24,7 +24,7 @@ Vier Bereiche:
 - Bilder im Repo (`public/`), Videos als YouTube-Einbettung
 - ESLint + Prettier
 - Hosting: Vercel (Free Tier), automatisches Deployment aus `main`
-- Code auf GitHub (privates Repo)
+- Code auf GitHub (öffentliches Repo)
 
 ## Ordnerstruktur
 

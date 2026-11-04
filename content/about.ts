@@ -62,6 +62,11 @@ export const projects: Project[] = [
     summary:
       "Built together with AI agents, with CI/CD and a human in the loop.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "GitHub Actions"],
+    link: {
+      kind: "external",
+      href: "https://github.com/SahanDurak/meine-website",
+      label: "View on GitHub",
+    },
   },
   {
     title: "The Ball",

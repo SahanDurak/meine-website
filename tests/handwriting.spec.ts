@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
 // to `cursive` (brief, section 3).
 test("margin note uses the own handwriting font", async ({ page }) => {
   await page.goto("/");
-  const note = page.getByText("still sketching");
+  const note = page.getByText("that's me !!!");
   await expect(note).toBeVisible();
 
   const family = await note.evaluate((el) => getComputedStyle(el).fontFamily);

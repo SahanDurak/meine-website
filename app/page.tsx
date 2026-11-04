@@ -127,7 +127,7 @@ export default function HomePage() {
               <path d="M22 30 C 8 28, 4 16, 6 4" />
               <path d="M1 10 L6 3 L12 9" />
             </svg>
-            <span className="pt-2">still sketching</span>
+            <span className="pt-2">{"that's me !!!"}</span>
           </p>
         </div>
       </section>

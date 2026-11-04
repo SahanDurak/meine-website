@@ -27,7 +27,8 @@ const rowClass = "grid min-h-11 grid-cols-[4.5rem_1fr] items-center gap-x-4";
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col gap-14 sm:gap-16">
+    // About writes in moss (brief, section 2).
+    <div className="flex flex-col gap-14 [--pen:var(--moss)] sm:gap-16">
       <section className="flex flex-col gap-6">
         <h1 className="text-4xl leading-[1.1] font-semibold tracking-[-0.02em] text-balance sm:text-5xl">
           About
@@ -39,7 +40,7 @@ export default function AboutPage() {
             </p>
           ))}
         </div>
-        {/* The only accent margin note on this page. */}
+        {/* The only red margin note on this page. */}
         <MarginNote>{introNote}</MarginNote>
       </section>
 
@@ -124,7 +125,7 @@ export default function AboutPage() {
                   <>
                     <a
                       href={`mailto:${item.address}`}
-                      className="inline-flex min-h-11 items-center underline decoration-pencil decoration-1 underline-offset-4 fine:hover:decoration-accent"
+                      className="inline-flex min-h-11 items-center underline decoration-pencil decoration-1 underline-offset-4 fine:hover:decoration-pen"
                     >
                       {item.address}
                     </a>

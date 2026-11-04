@@ -27,7 +27,7 @@ export function CopyEmailButton({ address }: { address: string }) {
         type="button"
         onClick={copy}
         aria-label="Copy e-mail address"
-        className="inline-flex min-h-11 min-w-11 items-center justify-center px-2 font-mono text-xs tracking-wider text-pencil uppercase underline decoration-pencil underline-offset-4 motion-safe:transition-transform motion-safe:duration-150 motion-safe:active:scale-[0.97] fine:hover:decoration-accent"
+        className="inline-flex min-h-11 min-w-11 items-center justify-center px-2 font-mono text-xs tracking-wider text-pencil uppercase underline decoration-pencil underline-offset-4 motion-safe:transition-transform motion-safe:duration-150 motion-safe:active:scale-[0.97] fine:hover:decoration-pen"
       >
         Copy
       </button>

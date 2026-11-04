@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DuotoneFilters } from "@/components/duotone-filters";
 import { LoopVideo } from "@/components/loop-video";
 import { creativeEntries } from "@/content/creative/entries";
 
@@ -23,7 +24,9 @@ export default function CreativePage() {
   );
 
   return (
-    <section className="flex flex-col gap-12">
+    // Creative Outlet writes in sea (brief, section 2).
+    <section className="flex flex-col gap-12 [--pen:var(--sea)]">
+      <DuotoneFilters />
       <header className="flex flex-col gap-3">
         {/* Large handwritten heading: Creative Outlet only, 32 px and up, own
             letter spacing kept (no tracking), no faux bold. */}
@@ -43,8 +46,8 @@ export default function CreativePage() {
               className="flex flex-col gap-4"
             >
               {/* Loose sheet: slightly tilted, alternating per entry. The
-                  rotation isolates blending, so the sheet needs its own paper
-                  background for the video's blend mode. */}
+                  sheet has its own paper background behind the duotone
+                  video. */}
               <div
                 className={`relative border border-line bg-paper p-3 sm:p-4 ${index % 2 === 0 ? "-rotate-1" : "rotate-1"}`}
               >

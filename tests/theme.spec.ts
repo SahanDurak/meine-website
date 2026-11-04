@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-const paperLight = "rgb(251, 246, 234)";
-const paperDark = "rgb(39, 34, 29)";
+const paperLight = "rgb(244, 235, 215)";
+const paperDark = "rgb(35, 35, 29)";
 
 test.describe("theme toggle", () => {
   test.use({ colorScheme: "light" });

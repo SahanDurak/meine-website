@@ -25,7 +25,7 @@ export function SiteNav() {
             aria-hidden="true"
             className="flex items-center gap-2 px-2 font-mono text-xs tracking-wider text-pencil uppercase"
           >
-            <span className="size-2 rounded-full bg-led motion-safe:animate-led" />
+            <span className="size-2 rounded-full bg-moss motion-safe:animate-led" />
             home lab
           </div>
           <ThemeToggle />

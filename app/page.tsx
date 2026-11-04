@@ -86,7 +86,7 @@ export default function HomePage() {
           {/* The only margin note on this screen. */}
           <p
             aria-hidden="true"
-            className="flex items-start gap-1 pt-4 font-hand text-xl leading-tight text-accent uppercase sm:pt-0 sm:pl-4"
+            className="flex items-start gap-1 pt-4 font-hand text-xl leading-tight text-red uppercase sm:pt-0 sm:pl-4"
           >
             <svg
               viewBox="0 0 28 32"

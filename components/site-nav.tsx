@@ -1,4 +1,5 @@
 import { NavLink } from "@/components/nav-link";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -18,13 +19,16 @@ export function SiteNav() {
             </NavLink>
           ))}
         </nav>
-        {/* Decorative only: nothing is measured, so the label states no status. */}
-        <div
-          aria-hidden="true"
-          className="-mr-2 ml-auto flex items-center gap-2 px-2 font-mono text-xs tracking-wider text-pencil uppercase"
-        >
-          <span className="size-2 rounded-full bg-led motion-safe:animate-led" />
-          home lab
+        <div className="ml-auto flex items-center gap-2">
+          {/* Decorative only: nothing is measured, so the label states no status. */}
+          <div
+            aria-hidden="true"
+            className="flex items-center gap-2 px-2 font-mono text-xs tracking-wider text-pencil uppercase"
+          >
+            <span className="size-2 rounded-full bg-led motion-safe:animate-led" />
+            home lab
+          </div>
+          <ThemeToggle />
         </div>
       </div>
     </header>

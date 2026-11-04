@@ -1,22 +1,15 @@
 type MarginNoteProps = {
   children: string;
-  /** "accent" = red margin note (max one per screen), "pencil" = quiet note. */
-  tone?: "accent" | "pencil";
   className?: string;
 };
 
 // Decorative Caveat note with a small hand-drawn arrow. Never the only carrier
 // of information, so it is hidden from assistive tech.
-export function MarginNote({
-  children,
-  tone = "accent",
-  className = "",
-}: MarginNoteProps) {
-  const color = tone === "accent" ? "text-accent" : "text-pencil";
+export function MarginNote({ children, className = "" }: MarginNoteProps) {
   return (
     <p
       aria-hidden="true"
-      className={`flex items-start gap-1 font-hand text-xl leading-tight ${color} ${className}`}
+      className={`flex items-start gap-1 font-hand text-xl leading-tight text-accent ${className}`}
     >
       <svg
         viewBox="0 0 28 32"

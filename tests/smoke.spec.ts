@@ -64,7 +64,6 @@ test.describe("about page", () => {
       "Career",
       "Education",
       "Interests",
-      "Books",
       "Contact",
     ]) {
       await expect(
@@ -89,6 +88,13 @@ test.describe("about page", () => {
     for (const link of await external.all()) {
       await expect(link).toHaveAttribute("rel", "noopener noreferrer");
     }
+  });
+
+  test("shows no placeholders", async ({ page }) => {
+    await page.goto("/about");
+    await expect(page.getByRole("main")).not.toContainText(
+      /TODO|example\.com/i,
+    );
   });
 
   test("e-mail can be opened and copied", async ({ page, context }) => {

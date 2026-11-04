@@ -29,9 +29,7 @@ export function ProjectCard({ title, summary, stack, link }: Project) {
           <li key={item}>{item}</li>
         ))}
       </ul>
-      {link.kind === "todo" ? (
-        <p className="text-sm text-pencil">{link.label}</p>
-      ) : (
+      {link && (
         <TextLink kind={link.kind} href={link.href}>
           {link.label}
         </TextLink>

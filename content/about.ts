@@ -1,16 +1,15 @@
 // Content of the About page. Layout lives in app/about/page.tsx.
-// Anything not known yet is marked [TODO] and shown as plain text.
+// Only confirmed facts: entries without a known value are left out.
 
 export type ProjectLink =
   | { kind: "external"; href: string; label: string }
-  | { kind: "internal"; href: string; label: string }
-  | { kind: "todo"; label: string };
+  | { kind: "internal"; href: string; label: string };
 
 export type Project = {
   title: string;
   summary: string;
   stack: string[];
-  link: ProjectLink;
+  link?: ProjectLink;
 };
 
 export type Role = {
@@ -34,15 +33,9 @@ export type Interest = {
   detail?: string;
 };
 
-export type Book = {
-  title: string;
-  author: string;
-};
-
 export type ContactLink =
   | { kind: "external"; label: string; href: string; display: string }
-  | { kind: "email"; label: string; address: string }
-  | { kind: "todo"; label: string; display: string };
+  | { kind: "email"; label: string; address: string };
 
 export const intro: string[] = [
   "I like building things, with code and with my hands.",
@@ -58,24 +51,17 @@ export const projects: Project[] = [
     summary:
       "Predicting remaining useful life on the NASA C-MAPSS dataset, with a physics-informed loss function. MLOps with uv, DVC and MLflow.",
     stack: ["Python", "uv", "DVC", "MLflow"],
-    link: { kind: "todo", label: "[TODO] GitHub link" },
-  },
-  {
-    title: "Home Lab",
-    summary:
-      "A playground with a Raspberry Pi 5 and ESP32 for networking and security exercises.",
-    stack: ["Raspberry Pi 5", "ESP32", "Networking", "Security"],
-    link: { kind: "todo", label: "[TODO] GitHub link" },
+    link: {
+      kind: "external",
+      href: "https://github.com/SahanDurak/turbofan-rul-prediction",
+      label: "View on GitHub",
+    },
   },
   {
     title: "This website",
     summary:
       "Built together with AI agents, with CI/CD and a human in the loop.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "GitHub Actions"],
-    link: {
-      kind: "todo",
-      label: "[TODO] GitHub link (repo is private)",
-    },
   },
   {
     title: "The Ball",
@@ -97,20 +83,25 @@ export const career: Role[] = [
     companyNote:
       "Part of Sika, a company with about 34,000 employees worldwide.",
     title: "Working student, Product Management and R&D / Technical Service",
-    period: "[TODO] period",
+    period: "2026 – present",
     highlights: [
       "Built a RAG system for internal documents (FastAPI, PostgreSQL + pgvector, Azure containers) that saves about 8 hours of research per request.",
       "Rebuilt the SOP project list and made it available to the team.",
-      "[TODO] more highlights?",
     ],
   },
 ];
 
+/** Newest first. */
 export const education: Education[] = [
   {
-    degree: "B.Eng. Industrial Engineering (Mechanical Engineering)",
+    degree: "B.Sc. Industrial Engineering, focus on Mechanical Engineering",
     school: "TH Lübeck",
-    period: "[TODO] period",
+    period: "2024 – 2028 (expected)",
+  },
+  {
+    degree: "Abitur",
+    school: "Leibniz-Gymnasium Bad Schwartau",
+    period: "2024",
   },
 ];
 
@@ -126,14 +117,7 @@ export const interests: Interest[] = [
   { label: "Nature" },
 ];
 
-export const books: Book[] = [
-  { title: "[TODO] Title", author: "[TODO] Author" },
-  { title: "[TODO] Title", author: "[TODO] Author" },
-  { title: "[TODO] Title", author: "[TODO] Author" },
-];
-
-// TODO: replace the placeholder address once the new one exists.
-export const contactEmail = "todo@example.com";
+export const contactEmail = "SahanDurak1@gmail.com";
 
 export const contact: ContactLink[] = [
   {
@@ -142,6 +126,11 @@ export const contact: ContactLink[] = [
     href: "https://github.com/SahanDurak",
     display: "github.com/SahanDurak",
   },
-  { kind: "todo", label: "LinkedIn", display: "[TODO] LinkedIn URL" },
+  {
+    kind: "external",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/sahan-durak-a89281357/",
+    display: "Sahan Durak",
+  },
   { kind: "email", label: "E-mail", address: contactEmail },
 ];

@@ -6,7 +6,6 @@ import { Section } from "@/components/about/section";
 import { TextLink } from "@/components/about/text-link";
 import { Timeline, TimelineItem } from "@/components/about/timeline";
 import {
-  books,
   career,
   contact,
   contactEmail,
@@ -23,7 +22,8 @@ export const metadata: Metadata = {
     "About Sahan: projects, career, education, interests and how to get in touch.",
 };
 
-const rowClass = "flex min-h-11 flex-wrap items-center gap-x-4 gap-y-1";
+// Fixed label column; the value wraps inside its own column on small screens.
+const rowClass = "grid min-h-11 grid-cols-[4.5rem_1fr] items-center gap-x-4";
 
 export default function AboutPage() {
   return (
@@ -107,43 +107,31 @@ export default function AboutPage() {
         </ul>
       </Section>
 
-      <Section id="books" title="Books">
-        <MarginNote tone="pencil">on my desk</MarginNote>
-        <ul className="flex flex-col divide-y divide-line border-b border-line">
-          {books.map(({ title, author }, index) => (
-            <li key={index} className="py-3">
-              {title} – <span className="text-pencil">{author}</span>
-            </li>
-          ))}
-        </ul>
-      </Section>
-
       <Section id="contact" title="Contact">
         <ul className="flex flex-col divide-y divide-line border-b border-line">
           {contact.map((item) => (
             <li key={item.label} className={rowClass}>
-              <span className="w-20 font-mono text-xs tracking-wider text-pencil uppercase">
+              <span className="font-mono text-xs tracking-wider text-pencil uppercase">
                 {item.label}
               </span>
-              {item.kind === "external" && (
-                <TextLink kind="external" href={item.href}>
-                  {item.display}
-                </TextLink>
-              )}
-              {item.kind === "todo" && (
-                <span className="text-pencil">{item.display}</span>
-              )}
-              {item.kind === "email" && (
-                <>
-                  <a
-                    href={`mailto:${item.address}`}
-                    className="inline-flex min-h-11 items-center underline decoration-pencil decoration-1 underline-offset-4 fine:hover:decoration-accent"
-                  >
-                    {item.address}
-                  </a>
-                  <CopyEmailButton address={contactEmail} />
-                </>
-              )}
+              <div className="flex flex-wrap items-center gap-x-3">
+                {item.kind === "external" && (
+                  <TextLink kind="external" href={item.href}>
+                    {item.display}
+                  </TextLink>
+                )}
+                {item.kind === "email" && (
+                  <>
+                    <a
+                      href={`mailto:${item.address}`}
+                      className="inline-flex min-h-11 items-center underline decoration-pencil decoration-1 underline-offset-4 fine:hover:decoration-accent"
+                    >
+                      {item.address}
+                    </a>
+                    <CopyEmailButton address={contactEmail} />
+                  </>
+                )}
+              </div>
             </li>
           ))}
         </ul>

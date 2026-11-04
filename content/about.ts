@@ -116,7 +116,6 @@ export const interests: Interest[] = [
   { label: "Hardware tinkering" },
   { label: "Drawing" },
   { label: "Running" },
-  { label: "Motorcycles" },
   { label: "Books" },
   { label: "Music" },
   { label: "Nature" },

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { PostList } from "@/components/blog/post-list";
 import { PencilStroke } from "@/components/pencil-stroke";
 import { getPublishedPostMetas } from "@/lib/blog";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Blog",
   description: "Articles by Sahan, newest first.",
-};
+  path: "/blog",
+});
 
 export default async function BlogPage() {
   const posts = await getPublishedPostMetas();

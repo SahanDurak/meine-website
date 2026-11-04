@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { PencilStroke } from "@/components/pencil-stroke";
 import { CopyEmailButton } from "@/components/about/copy-email-button";
 import { MarginNote } from "@/components/about/margin-note";
@@ -17,11 +18,12 @@ import {
   projects,
 } from "@/content/about";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
     "About Sahan: projects, career, education, interests and how to get in touch.",
-};
+  path: "/about",
+});
 
 // Fixed label column; the value wraps inside its own column on small screens.
 const rowClass = "grid min-h-11 grid-cols-[4.5rem_1fr] items-center gap-x-4";

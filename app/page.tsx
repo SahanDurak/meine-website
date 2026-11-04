@@ -1,15 +1,17 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { DimensionLine } from "@/components/dimension-line";
 import { PencilStroke } from "@/components/pencil-stroke";
 import { SectionLink } from "@/components/section-link";
 import { TapedPhoto } from "@/components/taped-photo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: { absolute: "Sahan – Engineering, Robotics and AI" },
   description:
     "Personal website of Sahan, an industrial engineering student interested in robotics and AI. Read the blog or explore the creative outlet.",
-};
+  path: "/",
+});
 
 const sections = [
   {

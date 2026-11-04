@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
 import { ThemeScript } from "@/components/theme-script";
+import { siteDescription, siteName, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,12 +31,14 @@ const sahanHand = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Sahan",
-    template: "%s · Sahan",
+    default: siteName,
+    template: `%s · ${siteName}`,
   },
-  description:
-    "Personal website of Sahan: a blog and a creative outlet for texts, images and videos.",
+  description: siteDescription,
+  // Large preview; the image falls back to og:image.
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -63,6 +67,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           {children}
         </main>
+        <SiteFooter />
       </body>
     </html>
   );

@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-// Ink text, always-visible pencil underline, accent only on fine-pointer hover.
+// Ink text, always-visible pencil underline, the area's pencil (--pen) only on fine-pointer hover.
 // min-h-11 keeps the target at 44 px.
 const linkClass =
-  "inline-flex min-h-11 items-center gap-1 underline decoration-pencil decoration-1 underline-offset-4 fine:hover:decoration-accent";
+  "inline-flex min-h-11 items-center gap-1 underline decoration-pencil decoration-1 underline-offset-4 fine:hover:decoration-pen";
 
 type TextLinkProps = {
   kind: "external" | "internal";

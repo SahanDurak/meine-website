@@ -70,9 +70,9 @@ export function LoopVideo({
         width={width}
         height={height}
         aria-label={label}
-        // White paper in the video blends into the page paper; in dark mode
-        // the drawing is inverted to chalk lines on dark paper.
-        className="h-auto w-full mix-blend-multiply dark:mix-blend-screen dark:invert"
+        // Duotone in palette colours: ink lines on paper in both modes. The
+        // filters are rendered once per page by <DuotoneFilters />.
+        className="h-auto w-full filter-[url(#duotone-light)] dark:filter-[url(#duotone-dark)]"
       />
       {/* Rendered on the server too (no layout shift); CSS hides it under
         reduced motion, where nothing plays. */}
@@ -80,7 +80,7 @@ export function LoopVideo({
         type="button"
         aria-label={`${paused ? "Play" : "Pause"} animation`}
         onClick={() => setPaused((value) => !value)}
-        className="-ml-2 flex min-h-11 cursor-pointer items-center self-start px-2 font-mono text-xs tracking-wider text-pencil uppercase motion-reduce:hidden fine:hover:text-accent"
+        className="-ml-2 flex min-h-11 cursor-pointer items-center self-start px-2 font-mono text-xs tracking-wider text-pencil uppercase motion-reduce:hidden fine:hover:text-pen"
       >
         {paused ? "Play" : "Pause"}
       </button>

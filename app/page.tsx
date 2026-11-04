@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import { DimensionLine } from "@/components/dimension-line";
+import { PencilStroke } from "@/components/pencil-stroke";
 import { SectionLink } from "@/components/section-link";
 import { Sketch } from "@/components/sketch";
 
@@ -38,14 +39,17 @@ export default function HomePage() {
       <section className="grid gap-x-10 gap-y-8 sm:grid-cols-[1fr_15rem]">
         <div className="flex flex-col gap-6">
           <h1 className="text-4xl leading-[1.1] font-semibold tracking-[-0.02em] text-balance sm:text-5xl">
-            Hi, I&apos;m Sahan.
+            Hi, I&apos;m <PencilStroke tone="moss">Sahan.</PencilStroke>
           </h1>
           <p className="max-w-xl text-lg leading-8">
             I study Industrial Engineering with a focus on Mechanical
             Engineering, and I work on software and AI solutions as a working
             student in product management. I&apos;m most curious about the place
             where{" "}
-            <span className="relative inline-block">
+            {/* leading-none: the underline follows the word's letters, not the
+                32 px line box, so it sits right under "robotics" wherever the
+                line wraps (the word itself never breaks). */}
+            <span className="relative inline-block leading-none">
               robotics
               <svg
                 aria-hidden="true"
@@ -86,7 +90,7 @@ export default function HomePage() {
           {/* The only margin note on this screen. */}
           <p
             aria-hidden="true"
-            className="flex items-start gap-1 pt-4 font-hand text-xl leading-tight text-accent uppercase sm:pt-0 sm:pl-4"
+            className="flex items-start gap-1 pt-4 font-hand text-xl leading-tight text-red uppercase sm:pt-0 sm:pl-4"
           >
             <svg
               viewBox="0 0 28 32"

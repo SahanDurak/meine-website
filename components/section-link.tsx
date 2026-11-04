@@ -19,7 +19,7 @@ export function SectionLink({
   return (
     <Link
       href={href}
-      className="group grid min-h-11 grid-cols-[1.75rem_1fr_auto] items-start gap-x-3 py-5 sm:grid-cols-[2.5rem_1fr_auto] sm:gap-x-4"
+      className="group grid min-h-11 grid-cols-[1.75rem_1fr_auto] items-start gap-x-3 py-5 even:[--pen:var(--sea)] sm:grid-cols-[2.5rem_1fr_auto] sm:gap-x-4"
     >
       <span
         aria-hidden="true"
@@ -33,7 +33,7 @@ export function SectionLink({
             {label}
             <span
               aria-hidden="true"
-              className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-accent ease-[cubic-bezier(0.23,1,0.32,1)] motion-safe:transition-transform motion-safe:duration-300 fine:group-hover:scale-x-100"
+              className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-pen ease-[cubic-bezier(0.23,1,0.32,1)] motion-safe:transition-transform motion-safe:duration-300 fine:group-hover:scale-x-100"
             />
           </span>
         </span>

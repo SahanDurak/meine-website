@@ -128,7 +128,7 @@ export function ThemeToggle() {
       }}
       aria-label={label}
       title={label}
-      className="-mr-2 flex size-11 shrink-0 cursor-pointer items-center justify-center text-ink motion-safe:transition-colors motion-safe:duration-150 fine:hover:text-accent"
+      className="-mr-2 flex size-11 shrink-0 cursor-pointer items-center justify-center text-ink motion-safe:transition-colors motion-safe:duration-150 fine:hover:text-sea"
     >
       {/* The icon shows the target mode, like the label. Visibility is pure
           CSS (dark: variant), so the server render is already correct. */}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PagePlaceholder } from "@/components/page-placeholder";
+import { PencilStroke } from "@/components/pencil-stroke";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <PagePlaceholder
-      title="Blog"
+      title={<PencilStroke tone="sea">Blog</PencilStroke>}
       description="My articles will appear here soon."
     />
   );

@@ -9,7 +9,7 @@ export function MarginNote({ children, className = "" }: MarginNoteProps) {
   return (
     <p
       aria-hidden="true"
-      className={`flex items-start gap-1 font-hand text-xl leading-tight text-accent uppercase ${className}`}
+      className={`flex items-start gap-1 font-hand text-xl leading-tight text-red uppercase ${className}`}
     >
       <svg
         viewBox="0 0 28 32"

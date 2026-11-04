@@ -27,7 +27,7 @@ test.describe("legal pages", () => {
     await expect(main.locator("article")).toHaveAttribute("lang", "de");
   });
 
-  test("datenschutz covers hosting, cookies, fonts and local storage", async ({
+  test("datenschutz is the e-recht24 text with Vercel and the source link", async ({
     page,
   }) => {
     const response = await page.goto("/datenschutz");
@@ -36,19 +36,43 @@ test.describe("legal pages", () => {
     await expect(
       main.getByRole("heading", { level: 1, name: "Datenschutzerklärung" }),
     ).toBeVisible();
-    for (const text of ["Vercel", "IP-Adresse", "Cookies", "localStorage"]) {
-      await expect(main).toContainText(text);
+    for (const heading of [
+      "1. Datenschutz auf einen Blick",
+      "2. Hosting",
+      "3. Allgemeine Hinweise und Pflichtinformationen",
+    ]) {
+      await expect(
+        main.getByRole("heading", { level: 2, name: heading }),
+      ).toBeVisible();
     }
+    await expect(main).toContainText("Vercel Inc.");
+    await expect(main).toContainText("440 N Barranca Avenue #4133");
+    await expect(main).toContainText(
+      "Sahan Durak Triftstraße 63, 23554 Lübeck",
+    );
+    await expect(main).not.toContainText("Telefon");
+    await expect(
+      main.getByRole("link", { name: /e-recht24\.de/ }),
+    ).toHaveAttribute("href", "https://www.e-recht24.de");
     await expect(main.locator("article")).toHaveAttribute("lang", "de");
   });
+
+  // Generator placeholders come in square brackets ("[Straße]"); the legal
+  // texts contain no brackets otherwise.
+  for (const path of ["/impressum", "/datenschutz"]) {
+    test(`${path} has no bracketed placeholders`, async ({ page }) => {
+      await page.goto(path);
+      await expect(page.getByRole("main")).not.toContainText(/\[[^\]]+\]/);
+    });
+  }
 });
 
 // Every page in the sitemap (so every published article) plus the fixed
-// pages. The legal texts still contain "[Bitte prüfen]" markers for the
-// owner to resolve before launch; they are allowed for now, other
-// placeholders are not.
+// pages. Also catches review markers ("[Bitte prüfen]") and bracketed
+// generator placeholders such as "[Telefonnummer der verantwortlichen Stelle]".
 test("no page shows placeholders", async ({ page, request }) => {
-  const placeholder = /TODO|FIXME|example\.com|lorem ipsum/i;
+  const placeholder =
+    /TODO|FIXME|example\.com|lorem ipsum|bitte prüfen|\[[^\]]*(nummer|adresse|name)[^\]]*\]/i;
   const xml = await (await request.get("/sitemap.xml")).text();
   const sitemapPaths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
     ([, url]) => new URL(url).pathname,

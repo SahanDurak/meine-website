@@ -24,7 +24,7 @@ Vier Bereiche:
 - Bilder im Repo (`public/`), Videos als YouTube-Einbettung
 - ESLint + Prettier
 - Hosting: Vercel (Free Tier), automatisches Deployment aus `main`
-- Code auf GitHub (privates Repo)
+- Code auf GitHub (öffentliches Repo)
 
 ## Ordnerstruktur
 
@@ -59,12 +59,13 @@ Die GitHub Action (`.github/workflows/ci.yml`) führt bei jedem Pull Request lin
 ## Arbeitsregeln
 
 1. **Nie direkt auf `main` arbeiten.** Für jede Aufgabe einen Branch anlegen: `feature/<kurzname>` oder `fix/<kurzname>`. `main` ist auf GitHub geschützt – Änderungen nur per Pull Request.
-2. **Kleine Schritte.** Eine Aufgabe = ein Branch = ein überschaubarer Pull Request.
-3. **Vor Abschluss prüfen:** `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm run build` und `npm run test:e2e` müssen fehlerfrei sein.
-4. **Erst planen, dann bauen.** Bei größeren Aufgaben zuerst kurz den Plan nennen und auf Freigabe warten.
-5. **Keine neuen Abhängigkeiten** ohne Rückfrage.
-6. **Nichts löschen oder umbenennen**, was nicht zur Aufgabe gehört.
-7. **Keine Geheimnisse** (API-Keys, Tokens) in den Code schreiben.
+2. **Jeder neue Branch zweigt von aktuellem `main` ab.** Keine gestapelten PRs, außer ich verlange es ausdrücklich.
+3. **Kleine Schritte.** Eine Aufgabe = ein Branch = ein überschaubarer Pull Request.
+4. **Vor Abschluss prüfen:** `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm run build` und `npm run test:e2e` müssen fehlerfrei sein.
+5. **Erst planen, dann bauen.** Bei größeren Aufgaben zuerst kurz den Plan nennen und auf Freigabe warten.
+6. **Keine neuen Abhängigkeiten** ohne Rückfrage.
+7. **Nichts löschen oder umbenennen**, was nicht zur Aufgabe gehört.
+8. **Keine Geheimnisse** (API-Keys, Tokens) in den Code schreiben.
 
 ## Code-Stil
 

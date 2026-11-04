@@ -17,6 +17,7 @@ type NavLinkProps = {
 };
 
 // Client component only for the current-page state; the rest of the nav stays on the server.
+// Prefix match, so every page below an area (like /blog/<slug>) marks it.
 export function NavLink({ href, tone, children }: NavLinkProps) {
   const pathname = usePathname();
   const isCurrent =
@@ -24,6 +25,25 @@ export function NavLink({ href, tone, children }: NavLinkProps) {
       ? pathname === "/"
       : pathname === href || pathname.startsWith(`${href}/`);
 
+  return (
+    <NavLinkView href={href} tone={tone} isCurrent={isCurrent}>
+      {children}
+    </NavLinkView>
+  );
+}
+
+type NavLinkViewProps = NavLinkProps & {
+  isCurrent: boolean;
+};
+
+// Pure markup without hooks, so the nav can also use it as the Suspense
+// fallback (no current-page marker) while the pathname is not known yet.
+export function NavLinkView({
+  href,
+  tone,
+  isCurrent,
+  children,
+}: NavLinkViewProps) {
   return (
     <Link
       href={href}

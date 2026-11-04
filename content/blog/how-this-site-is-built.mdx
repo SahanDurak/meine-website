@@ -1,0 +1,41 @@
+---
+title: "How this site is built"
+date: "2026-11-04"
+description: "The stack, the design idea, the Claude Code agents and the CI/CD setup behind this site, as they are set up in the repository."
+tags: ["meta", "nextjs", "claude-code", "ci"]
+draft: false
+---
+
+This site is a personal project, and it is also a place to practise working with AI agents and CI/CD. This post describes how it is set up.
+
+## Stack
+
+The site uses Next.js with the App Router and TypeScript. Styling is done with Tailwind CSS. Blog posts are MDX files in `content/blog/`. There is no database, no CMS and no login. Images are stored in the repository, and videos are embedded from YouTube.
+
+The code is in a public GitHub repository. Vercel deploys the site automatically from the `main` branch.
+
+## Design
+
+The design brief calls the idea "Engineer's Sketchbook". A precise technical layer, with monospace labels, hairlines, dimension lines and coordinates, overlaps with a sketch layer of ink and pencil drawings.
+
+The handwriting you see on the site is my own. I turned it into a font called Sahan Hand with Calligraphr.
+
+## Working with Claude Code
+
+I use three subagents. `ui-designer` handles layout and styling, `content-writer` handles texts, and `code-reviewer` checks the changes before a pull request is opened. A hook runs Prettier on every file Claude edits. For bigger tasks, Claude states a plan first, and I approve it before anything is built.
+
+## Rules and CI/CD
+
+The `main` branch is protected on GitHub, so changes only arrive through pull requests. One task is one branch and one pull request.
+
+A GitHub Action runs on every pull request and executes these checks:
+
+```bash
+npm run lint
+npm run format:check
+npm run typecheck
+npm run build
+npm run test:e2e
+```
+
+The last command runs the Playwright end-to-end tests. Once a pull request is merged, Vercel deploys the result.

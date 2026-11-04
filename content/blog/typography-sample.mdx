@@ -1,0 +1,46 @@
+---
+title: "Typography sample"
+date: "2026-11-04"
+description: "A sample article that shows headings, lists, quotes, links and code blocks as they look in blog posts."
+tags: ["sample", "typography"]
+draft: true
+---
+
+A sketch is a quick way to think on paper. Good drawings and good machines share one habit: they start rough and get refined, as described in the [MDX documentation](https://mdxjs.com) for content like this, and a single `inline code` snippet should sit calmly inside the line.
+
+## Sketching and engineering
+
+Both fields reward patience. A sketch shows an idea before it is finished, and a prototype shows whether the idea holds up.
+
+### What a sketch is good for
+
+- Testing a shape before committing to it
+- Showing a problem to someone else
+- Remembering a thought that would otherwise be lost
+
+### How a small project can proceed
+
+1. Draw the rough idea.
+2. Build the smallest working version.
+3. Measure what happens.
+4. Refine and repeat.
+
+> A drawing is not the thing itself, but it is often the fastest way to find out what the thing should be.
+
+Some words in a sentence carry **strong** weight, while others only need _emphasis_. The difference should be visible without being loud.
+
+---
+
+## A code example
+
+```ts
+type Point = { x: number; y: number };
+
+function distance(a: Point, b: Point): number {
+  return Math.hypot(b.x - a.x, b.y - a.y);
+}
+
+const veryLongDescription =
+  "This string is intentionally long so that the code block has to scroll horizontally instead of wrapping.";
+console.log(distance({ x: 0, y: 0 }, { x: 3, y: 4 }));
+```

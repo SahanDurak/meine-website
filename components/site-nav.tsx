@@ -1,4 +1,5 @@
-import { NavLink } from "@/components/nav-link";
+import { Suspense } from "react";
+import { NavLink, NavLinkView } from "@/components/nav-link";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 // Each area has its own coloured pencil (brief, section 2), used for the
@@ -16,9 +17,25 @@ export function SiteNav() {
       <div className="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-between gap-x-6 px-6">
         <nav aria-label="Main navigation" className="-ml-2 flex flex-wrap">
           {navItems.map((item) => (
-            <NavLink key={item.href} href={item.href} tone={item.tone}>
-              {item.label}
-            </NavLink>
+            // usePathname can suspend while prerendering a route whose params
+            // are only known at request time (Cache Components). The fallback
+            // is the same link without the current-page marker (issue #14).
+            <Suspense
+              key={item.href}
+              fallback={
+                <NavLinkView
+                  href={item.href}
+                  tone={item.tone}
+                  isCurrent={false}
+                >
+                  {item.label}
+                </NavLinkView>
+              }
+            >
+              <NavLink href={item.href} tone={item.tone}>
+                {item.label}
+              </NavLink>
+            </Suspense>
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">

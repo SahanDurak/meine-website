@@ -22,7 +22,8 @@ export const creativeEntries: CreativeEntry[] = [
     type: "video",
     title: "The Ball",
     date: "2026-11-04",
-    description: "[TODO] A short line about The Ball.",
+    description:
+      "My first pencil animation in Procreate. A ball, a few bounces and a very dramatic ending.",
     video: "/creative/the-ball.mp4",
     still: "/creative/the-ball-last-frame.webp",
     width: 1056,

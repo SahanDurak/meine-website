@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { pageMetadata } from "@/lib/metadata";
 import { PostMetaLine } from "@/components/blog/post-meta";
 import { getPublishedPost, getPublishedPosts } from "@/lib/blog";
 
@@ -21,7 +22,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getPublishedPost(slug);
   if (!post) return {};
-  return { title: post.title, description: post.description };
+  return pageMetadata({
+    title: post.title,
+    description: post.description,
+    path: `/blog/${post.slug}`,
+    type: "article",
+  });
 }
 
 export default async function BlogPostPage({

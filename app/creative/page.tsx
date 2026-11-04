@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { DuotoneFilters } from "@/components/duotone-filters";
 import { LoopVideo } from "@/components/loop-video";
 import { PencilStroke } from "@/components/pencil-stroke";
 import { creativeEntries } from "@/content/creative/entries";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Creative Outlet",
   description:
     "Drawings, animations and other things made for fun, newest first.",
-};
+  path: "/creative",
+});
 
 function formatDate(date: string) {
   return new Date(`${date}T00:00:00Z`).toLocaleDateString("en-GB", {

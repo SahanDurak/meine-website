@@ -39,7 +39,7 @@ export type ContactLink =
 
 export const intro: string[] = [
   "I like building things, with code and with my hands.",
-  "I also like to draw. This contrast is the idea behind this site.",
+  "I also like art. This contrast is the idea behind this site.",
 ];
 
 /** Short handwritten margin note next to the intro (decorative). */
